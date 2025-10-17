@@ -21,8 +21,9 @@
 ----------------
 
 ```bash
+# 1) 가상환경 생성 및 의존성 설치
 python -m venv .venv
-python -m venv .venv
+source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
@@ -30,8 +31,9 @@ pip install -r requirements.txt
 2) (선택) FAISS 인덱스 생성
 
 ```bash
+# 가상환경을 활성화한 뒤 실행
 source .venv/bin/activate
-source .venv/bin/activate
+python scripts/build_tei_faiss.py --input-dir tei/schema --output-index data/faiss_tei.index --output-meta data/faiss_tei_meta.json
 ```
 
 3) Neo4j에 메타 적재 (실행 전 `config/neo4j.ini` 또는 환경변수 설정 필요)
@@ -39,9 +41,11 @@ source .venv/bin/activate
 ```bash
 # 환경변수 방식
 export NEO4J_PASSWORD=your_password
+source .venv/bin/activate
 python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json
-python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json
+
 # 또는 config/neo4j.ini 파일을 사용
+source .venv/bin/activate
 python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json
 ```
 
