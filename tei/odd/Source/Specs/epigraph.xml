@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="textstructure" xml:id="gi-epigraph" ident="epigraph">
+  <gloss versionDate="2017-06-13" xml:lang="en">epigraph</gloss>
+  <gloss versionDate="2017-06-13" xml:lang="de">Motto</gloss>
+  <desc versionDate="2011-11-05" xml:lang="en">contains a quotation, anonymous or attributed, appearing at
+  the start or end of a section or on a title page.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">절 또는 장의 시작, 또는 제목 페이지에 나타나는 인용, 작자미상, 또는 추정을 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">包含一段匿名或署名引文，出現在段落或章節的開頭，或在題名頁中。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">章や節の始め、タイトルページなどにある引用(題辞)を示す。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">contient une citation, anonyme ou attribuée et qui apparaît au
+    début d’une section ou d’un chapitre ou sur une page de titre.</desc>
+  <desc versionDate="2017-06-13" xml:lang="de">enthält ein anonymes oder jemandem zugeschriebenes Zitat, das am Beginn eines Abschnitts,
+    Kapitels oder auf einer Titelseite steht.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene una cita, anónima o atribuida, que aparece al
+    inicio de una sección o capítulo, o en el frontispicio.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene una citazione, anonima o attribuita, che appare
+    all'inizio di una sezione o capitolo, o sul frontespizio</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.cmc"/>
+    <memberOf key="model.divWrapper"/>
+    <memberOf key="model.pLike.front"/>
+    <memberOf key="model.titlepagePart"/>
+  </classes>
+  <content>
+    
+      <alternate minOccurs="0" maxOccurs="unbounded">
+        <classRef key="model.common"/>
+        <classRef key="model.global"/>
+      </alternate>
+    
+  </content>
+  <exemplum xml:lang="mul">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-epigraph-egXML-jl" xml:lang="la" source="#DRPAL-eg-44">
+      <epigraph xml:lang="la">
+        <cit>
+          <bibl>Lucret.</bibl>
+          <quote>
+            <l part="F">petere inde coronam,</l>
+            <l>Vnde prius nulli velarint tempora Musae.</l>
+          </quote>
+        </cit>
+      </epigraph>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-epigraph-egXML-eg" source="#biblzh-tw_n56-57">
+      <epigraph xml:lang="zh">
+        <cit>
+          <bibl>俞平伯</bibl>
+          <quote>
+            <l part="N">小燕子其實也無所愛，</l>
+            <l>只是沉浸在朦朧而飄忽的夏夜夢里罷了。</l>
+          </quote>
+        </cit>
+      </epigraph>
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#DSAE"/>
+    <ptr target="#DSDTB"/>
+    <ptr target="#DSTITL"/>
+  </listRef>
+</elementSpec>

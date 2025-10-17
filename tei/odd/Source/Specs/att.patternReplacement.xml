@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<classSpec xmlns="http://www.tei-c.org/ns/1.0" module="header" type="atts" ident="att.patternReplacement">
+  <desc versionDate="2012-11-22" xml:lang="en">provides attributes for regular-expression matching and replacement.</desc>
+  <desc versionDate="2023-08-24" xml:lang="ja">正規表現のマッチと置換のための属性を提供する。</desc>
+  <attList>
+    <attDef ident="matchPattern" usage="req">
+      <desc versionDate="2012-11-22" xml:lang="en">specifies a regular expression against which the values of other attributes
+        can be matched.</desc>
+      <!-- MDH 2012-11-22: The following translations are inherited from when these attributes 
+      were defined specifically on <cRef>; they need to be updated for the more general 
+      desc above, now that they are also used on <prefixDef>. -->
+      <!--<desc versionDate="2009-01-05" xml:lang="fr">spécifie une expression régulière à laquelle vont
+        être comparées les valeurs des attributs <att>cRef</att>.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko"><att>cRef</att> 속성 값이 대응하는 정규 표현을 명시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">標明一個表示屬性<att>cRef</att>屬性值的固定方法。</desc>
+      <desc versionDate="2023-08-24" xml:lang="ja">他の属性の値がマッチする対象の正規表現を指定する。</desc>
+      <desc versionDate="2006-10-18" xml:lang="de">legt einen regulären Ausdruck fest, gegen den die
+        Werte eines <att>cRef</att>-Attributs abgeglichen werden können.</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">especifica una expresión regular con la que los
+        valores de los atributos <att>cRef</att> pueden ser combinados.</desc>
+      <desc versionDate="2007-01-21" xml:lang="it">specifica un'esressione regolare alla qaule posso
+        corrispondere i valori degli attributi <att>cRef</att>.</desc>-->
+      <datatype><dataRef key="teidata.pattern"/></datatype>
+      <remarks versionDate="2013-12-08" xml:lang="en">
+        <p>The syntax used should follow that defined by <ref target="https://www.w3.org/TR/xpath-functions/#regex-syntax">W3C XPath syntax</ref>. Note that parenthesized groups are used not only for establishing order of precedence and atoms for
+          quantification, but also for creating subpatterns to be referenced by the
+          <att>replacementPattern</att> attribute.</p>
+      </remarks>
+      <remarks versionDate="2007-06-12" xml:lang="fr">
+        <p>Les groupes parenthésés ne sont pas seulement utilisés pour établir un ordre de priorité
+          et des unités de quantification, mais aussi pour créer des sous-modèles référencés par
+          l'attribut <att>replacementPattern</att>.</p>
+      </remarks>
+      <remarks versionDate="2008-04-06" xml:lang="es">
+        <p>Utilizan a los grupos de Parenthesised no sólo para establecer el orden de la precedencia
+          y los átomos para la cuantificación, sino también para crear los subpatterns que se
+          referirán por el atributo <att>replacementPattern</att>.</p>
+      </remarks>
+      <remarks versionDate="2023-08-24" xml:lang="ja">
+        <p> 使用される構文は、<ref target="http://www.w3.org/TR/xpath-functions/#regex-syntax">W3C XPath syntax</ref>で定義されているものに従うべきである。カッコで囲まれたグループは、出現順序や量化単位の他、属性 <att>replacementPattern</att>で参照される下位パターンの作成にも使用されることに注意する。 </p>
+      </remarks>
+    </attDef>
+    <attDef ident="replacementPattern" usage="req">
+      <desc versionDate="2013-12-08" xml:lang="en">specifies a <soCalled>replacement pattern</soCalled>, that is, the skeleton of a relative or absolute URI containing references to groups in
+        the <att>matchPattern</att> which, once subpattern substitution
+        has been performed, complete the URI.</desc>
+      <desc versionDate="2009-01-05" xml:lang="fr">spécifie une <soCalled>règle de
+        remplacement</soCalled> qui, après avoir opéré les substitutions prévues à chaque nœud,
+        génère une URI.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">하위 유형 대치가 실행되면, URI를 제공하는 <soCalled>replacement
+        pattern</soCalled>를 명시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">標明一個<soCalled>取代模式</soCalled>，一旦進行次要模式的替換，會自動提供統一資源識別符 (URI) 。</desc>
+      <desc versionDate="2023-08-24" xml:lang="ja"><soCalled>replacement pattern</soCalled>を指定する。つまり、<att>matchPattern</att>内のグループへの参照を含む相対URIまたは絶対URIのスケルトンで、サブパターンの置換が実行されることで、URIを完成させるものである。</desc>
+      <desc versionDate="2018-07-18" xml:lang="de">beschreibt ein <soCalled>replacement pattern
+        (Ersetzungsmuster)</soCalled>, das heißt das Grundgerüst einer relativen oder absoluten URI, die Referenzen auf Gruppen im <att>matchPattern</att>-Attribut enthalten und die URI komplettieren, sobald die  
+        Ersetzung der untergeordneten Muster durchgeführt wurde.</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">especifica un <soCalled>replacement pattern (patrón
+        de remplazamiento)</soCalled>, el cual, una vez se ha ejecutado el subpatrón de
+        sustitución, proporciona un URI.</desc>
+      <desc versionDate="2007-01-21" xml:lang="it">specifica un <soCalled>replacement pattern</soCalled>
+        che, una volta applicato un sub-pattern di sostituzione, fornisce un URI.</desc>
+      <datatype><dataRef key="teidata.replacement"/></datatype>
+      <remarks versionDate="2012-11-22" xml:lang="en">
+        <p>The strings <mentioned>$1</mentioned>, <mentioned>$2</mentioned> etc.  are references to the corresponding group in the
+          regular expression specified by <att>matchPattern</att> (counting open parenthesis, left
+          to right). Processors are expected to replace them with whatever matched the corresponding
+          group in the regular expression.</p>
+        <p>If a digit preceded by a dollar sign is needed in the actual replacement pattern (as
+          opposed to being used as a back reference), the dollar sign must be written as
+          <code>%24</code>.</p>
+      </remarks>
+      <remarks versionDate="2007-06-12" xml:lang="fr">
+        <p>Les chaînes <q>$1</q> à <q>$9</q> sont des références au groupe correspondant dans
+          l'expression régulière spécifiée par l'attribut <att>matchPattern</att> (en incluant la parenthèse
+          ouvrante, de gauche à droite). Les processeurs devraient remplacer ces groupes par les
+          valeurs correspondant aux groupes dans l'expression régulière.</p>
+        <p>Si un chiffre précédé par un dollar est nécessaire dans le modèle de remplacement actuel
+          (en opposition à ce qui a été utilisé comme référence antérieure), le signe dollar doit
+          être encodé <code>%24</code>.</p>
+      </remarks>
+      <remarks versionDate="2008-04-06" xml:lang="es">
+        <p>Las series <q>$1</q>a través <q>$9</q> son referencias al grupo correspondiente en la
+          expresión regular especificada por el <att>matchPattern</att> (contando paréntesis
+          abiertos, de izquierda a derecha). Se espera que los procesadores las substituyan por el
+          grupo correspondiente en la expresión regular.</p>
+        <p>Si un dígito precedido por el signo del dólar se necesita en el modelo actual de
+          substitución (en contraposición a ser utilizado como una referencia posterior), el signo
+          de dólar se debe escribir como <code>%24</code>.</p>
+      </remarks>
+      <remarks versionDate="2008-04-05" xml:lang="ja">
+        <p>
+          文字列<mentioned>$1</mentioned>、<mentioned>$2</mentioned>などは、属性<att>matchPattern</att>にある正規表現に該当するグループに(開き括弧を左から右の順番で数えて)対応するものである。処理ソフトウェアは、当該正規表現に対応するグループに置換することが期待されている。</p>
+        <p>ドル記号に続く数値が(後方参照として用いられるのではなく)置換パターンとして必要な場合には、そのドル記号は<code>%24</code>と書かれなければならない。
+        </p>
+      </remarks>
+    </attDef>
+  </attList>
+  <listRef>
+    <ptr target="#SAPU"/>
+    <ptr target="#HD54M"/>
+    <ptr target="#HD54"/>
+    <ptr target="#HD54S"/>
+  </listRef>
+</classSpec>

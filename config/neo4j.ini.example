@@ -1,0 +1,6 @@
+[neo4j]
+# Set your Neo4j connection details here. Do NOT commit this file to source control.
+# Example:
+# NEO4J_URI=bolt://localhost:7687
+# NEO4J_USER=neo4j
+# NEO4J_PASSWORD=dh-rag-neo4j-2025

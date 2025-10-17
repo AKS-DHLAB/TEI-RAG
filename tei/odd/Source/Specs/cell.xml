@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="figures" xml:id="gi-cell" ident="cell">
+  <gloss versionDate="2007-06-12" xml:lang="en">cell</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">cellule</gloss>
+  <gloss versionDate="2017-06-19" xml:lang="de">Tabellenzelle</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">contains one cell of a table.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">하나의 테이블의 하나의 셀을 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">包含表格中的一個儲存格。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">表中のひとつのセルを示す。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">contient une cellule d'un tableau.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene una celda de una tabla.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene una cella di una tabella.</desc>
+  <desc versionDate="2017-06-19" xml:lang="de">enthält eine Zelle einer Tabelle.</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.tableDecoration"/>
+  </classes>
+  <content>
+    <macroRef key="macro.specialPara"/>
+  </content>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-cell-egXML-el" source="#COLI-eg-172">
+      <row>
+        <cell role="label">General conduct</cell>
+        <cell role="data">Not satisfactory, on account of his great unpunctuality
+                     and inattention to duties</cell>
+      </row>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-cell-egXML-lc" source="#UND">
+      <row>
+        <cell role="label">Comportement général</cell>
+        <cell role="data">Non satisfaisant, à cause de son inexactitude et de son
+          inconséquence</cell>
+      </row>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-cell-egXML-ks" source="#UND">
+      <row>
+        <cell role="label">工作評價</cell>
+        <cell role="data">不滿意；因為工作拖延、粗心。</cell>
+      </row>
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#FTTAB1" type="div1"/>
+  </listRef>
+</elementSpec>

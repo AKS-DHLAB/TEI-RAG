@@ -1,0 +1,57 @@
+# Ignore local config files that contain secrets
+config/neo4j.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+.venv/
+.env
+.env.*
+venv/
+
+# Byte-compiled / optimized / DLL files
+*.so
+*.dylib
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Logs
+logs/
+*.log
+
+# Data / model artifacts
+data/
+models/
+*.index
+*.bin
+*.npz
+
+# Backups and archives
+backups/
+*.tar.gz
+
+# Hugging Face cache
+~/.cache/huggingface/
+# Tokenizers cache
+~/.cache/tokenizers/
+
+# MacOS
+.DS_Store
+
+# JetBrains
+.idea/
+
+# VSCode
+.vscode/
+

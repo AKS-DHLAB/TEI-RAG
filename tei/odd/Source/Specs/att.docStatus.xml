@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<classSpec xmlns="http://www.tei-c.org/ns/1.0" module="tei" type="atts" xml:id="class-attr-docStatus" ident="att.docStatus">
+  <desc versionDate="2010-05-06" xml:lang="en">provides attributes for use on metadata elements
+  describing the status of a document.</desc>
+  <desc versionDate="2019-05-10" xml:lang="ja">文書のステータスを記述するメタデータ要素用の属性を提供する。</desc>
+  <attList>
+    <attDef ident="status">
+      <desc versionDate="2010-05-06" xml:lang="en">describes the status of a document either currently or, when
+associated with a dated element, at the time indicated.</desc>
+      <desc versionDate="2019-05-10" xml:lang="ja">現在の、もしくは日時に関連づけられた要素にあっては、指定された時点における文書のステータスを記述する。</desc>
+      <datatype><dataRef key="teidata.enumerated"/></datatype>
+      <defaultVal>draft</defaultVal>
+      <valList type="open">
+        <valItem ident="approved"/>
+        <valItem ident="candidate"/>
+        <valItem ident="cleared"/>
+        <valItem ident="deprecated"/>
+        <valItem ident="draft"/>
+        <valItem ident="embargoed"/>
+        <valItem ident="expired"/>
+        <valItem ident="frozen"/>
+        <valItem ident="galley"/>
+        <valItem ident="proposed"/>
+        <valItem ident="published"/>
+        <valItem ident="recommendation"/>
+        <valItem ident="submitted"/>
+        <valItem ident="unfinished"/>
+        <valItem ident="withdrawn"/>
+      </valList>
+    </attDef>
+  </attList>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="class-attr-docStatus-egXML-dj" source="#UND">
+      <revisionDesc status="published">
+        <change when="2010-10-21" status="published"/>
+        <change when="2010-10-02" status="cleared"/>
+        <change when="2010-08-02" status="embargoed"/>
+        <change when="2010-05-01" status="frozen" who="#MSM"/>
+        <change when="2010-03-01" status="draft" who="#LB"/>
+      </revisionDesc>
+    </egXML>
+  </exemplum>
+</classSpec>

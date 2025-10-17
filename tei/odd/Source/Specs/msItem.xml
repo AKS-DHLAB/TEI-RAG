@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="msdescription" xml:id="MSITEM" ident="msItem">
+  <gloss versionDate="2007-07-04" xml:lang="en">manuscript item</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">원고 항목</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW"/>
+  <gloss versionDate="2008-04-06" xml:lang="es">elemento del manuscrito</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">item de manuscrit</gloss>
+  <gloss versionDate="2007-11-06" xml:lang="it">parte di manoscritto</gloss>
+  <desc versionDate="2018-11-19" xml:lang="en">describes an individual work or item within the intellectual
+  content of a manuscript, manuscript part, or other object.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">원고 또는 원고 일부의 지적 내용 내에서 개별 작품 또는 항목을 기술한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">描述手稿或手稿部分的智慧內容中所包含的單一作品或項目。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">手書き資料の知的内容の中に出現する、独立した作品または項目を示す。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">décrit une œuvre ou un item individualisés dans le
+      contenu intellectuel d'un manuscrit ou d'une partie de manuscrit.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">describe una obra individual o un elemento al interno del contenido intelectual de un manuscrito o de una de sus partes.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">descrive una singola opera o oggetto all'interno del contenuto intellettuale di un manoscritto o di una sua parte</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.msClass"/>
+    <memberOf key="att.msExcerpt"/>
+    <memberOf key="model.msItemPart"/>
+  </classes>
+  <content>
+    <sequence>
+      
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <elementRef key="locus"/>
+          <elementRef key="locusGrp"/>
+        </alternate>
+      
+      <alternate>
+        
+          <classRef key="model.pLike" minOccurs="1" maxOccurs="unbounded"/>
+        
+        
+          <alternate minOccurs="1" maxOccurs="unbounded">
+            <classRef key="model.titlepagePart"/>
+            <classRef key="model.msItemPart"/>
+            <classRef key="model.global"/>
+          </alternate>
+        
+      </alternate>
+    </sequence>
+  </content>
+  <exemplum xml:lang="mul">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="MSITEM-egXML-pn" xml:lang="non">
+      <msItem class="#saga">
+        <locus>ff. 1r-24v</locus>
+        <title>Agrip af Noregs konunga sögum</title>
+        <incipit>regi oc h<ex>ann</ex> setiho
+<gap reason="illegible" extent="7"/>sc 
+heim se<ex>m</ex> þio</incipit>
+        <explicit>h<ex>on</ex> hev<ex>er</ex> 
+               <ex>oc</ex>þa buit hesta .ij. aNan viþ 
+fé enh<ex>on</ex>o<ex>m</ex> aNan til
+reiþ<ex>ar</ex>
+            </explicit>
+        <textLang mainLang="non">Old Norse/Icelandic</textLang>
+      </msItem>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="MSITEM-egXML-vl" source="#fr-ex-BnF-Reliures">
+      <msContents>
+        <msItem>
+          <!-- pour le traitement des recueils la solution possible est de répéter l'élément <msItem>  -->
+          <docAuthor>
+            <surname>Longus</surname>
+          </docAuthor>
+          <docTitle>
+            <titlePart type="main">Les amours pastorales de Daphnis et Chloé</titlePart>
+          </docTitle>
+          <docImprint>
+            <pubPlace>Paris</pubPlace>
+            <publisher>[Jacques Quillau]</publisher>
+          </docImprint>
+          <docDate when="1718">1718</docDate>
+          <note>in-8°.</note>
+          <!-- in-32°; in-24°; in-16°; in-8°; in-4°; in-folio; gr. folio -->
+          <note>Exemplaire réglé.</note>
+          <note>
+            <ref target="http://catalogue.bnf.fr/ark:/12148/cb30831232s">Notice bibliographique
+                dans le Catalogue général</ref>
+          </note>
+        </msItem>
+      </msContents>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="MSITEM-egXML-ym">
+      <msItem>
+        <locus>f.495</locus>
+        <title>台灣隨筆</title>
+        <incipit>幾荷蘭人由洋中來，假地日本，久而不帰，遂築城而有之。</incipit>
+        <explicit>惟商舶可以航海，凡使節往來咸藉之。</explicit>
+        <textLang mainLang="zh-tw">繁體中文</textLang>
+      </msItem>
+      <!-- http://catalog.ndap.org.tw/?URN=2155367 -->
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#mscoit"/>
+  </listRef>
+</elementSpec>

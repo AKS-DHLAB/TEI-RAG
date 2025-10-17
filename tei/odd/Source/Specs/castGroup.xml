@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="drama" xml:id="gi-castGroup" ident="castGroup">
+  <gloss versionDate="2007-07-04" xml:lang="en">cast list grouping</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">배역 목록 모아 놓기</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">角色群組</gloss>
+  <gloss versionDate="2008-04-06" xml:lang="es">grupo de reparto</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">liste de personnages</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">raggruppamento della lista dei personaggi</gloss>
+  <gloss versionDate="2023-10-02" xml:lang="ja">配役リスト内グループ</gloss>
+  <desc versionDate="2017-02-07" xml:lang="en">groups one or more individual <gi>castItem</gi>
+elements within a cast list.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">배역 목록 내의 몇 개의 개별 castItem 요소를 모아 놓는다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">匯集角色清單中一個或多個角色項目元素。</desc>
+  <desc versionDate="2008-04-06" xml:lang="es">agrupa uno o más elementos individuales del reparto (castItem).</desc>
+  <desc versionDate="2023-10-02" xml:lang="ja">配役リストにある、ひとつ以上の<gi>castItem</gi>要素をまとめる。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">dans une distribution, catégorie qui rassemble un ou
+      plusieurs personnages.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">raggruppa uno o più elementi individuali castItem in una lista dei personaggi.</desc>
+  
+  <classes>
+    <memberOf key="att.global"/>
+    </classes>
+  <content>
+    <sequence>
+      
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <classRef key="model.global"/>
+          <classRef key="model.headLike"/>
+        </alternate>
+      
+      <sequence minOccurs="1" maxOccurs="unbounded">
+        <alternate>
+          <elementRef key="castItem"/>
+          <elementRef key="castGroup"/>
+          <elementRef key="roleDesc"/>
+        </alternate>
+        
+          <classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/>
+        
+      </sequence>
+      <sequence minOccurs="0">
+        <elementRef key="trailer"/>
+        
+          <classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/>
+        
+      </sequence>
+    </sequence>
+  </content>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-castGroup-egXML-mx" source="#DRCAST-eg-21">
+      <castGroup rend="braced">
+        <castItem>
+          <role>Walter</role>
+          <actor>Mr Frank Hall</actor>
+        </castItem>
+        <castItem>
+          <role>Hans</role>
+          <actor>Mr F.W. Irish</actor>
+        </castItem>
+        <roleDesc>friends of Mathias</roleDesc>
+      </castGroup>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-castGroup-egXML-dw" source="#fr-ex-Guerre-Troie">
+      <castGroup>
+        <head>Messagers</head>
+        <castItem><actor>Jean-Claude Islert</actor>, <actor>Michel Sausin</actor>.</castItem>
+      </castGroup>
+      <castGroup>
+        <head>Servantes troyennes</head>
+        <castItem><actor>Dominique Jayr</actor>, <actor>Annie Seurat</actor>,<actor> Hélène
+            Augier</actor></castItem>
+      </castGroup>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-castGroup-egXML-wt" source="#biblzh-tw_n30-31">
+      <castGroup rend="braced">
+        <castItem>
+          <role>程蝶衣</role>
+          <actor>張國榮</actor>
+        </castItem>
+        <castItem>
+          <role>菊仙</role>
+          <actor>鞏俐</actor>
+        </castItem>
+        <roleDesc>原是妓女，後嫁段小樓為妻</roleDesc>
+      </castGroup>
+    </egXML>
+  </exemplum>
+  <remarks versionDate="2008-02-01" xml:lang="en">
+    <p>The <att>rend</att> attribute may be used, as here, to indicate
+whether the grouping is indicated by a brace, whitespace, font change,
+etc. </p>
+    <p>Note that in this example the role description <q>friends of
+Mathias</q> is understood to apply to both roles equally. </p>
+  </remarks>
+  <remarks versionDate="2007-06-12" xml:lang="fr">
+    <p>L'attribut <att>rend</att> peut être utilisé comme ici pour indiquer si le
+                regroupement est indiqué par une parenthèse, un espace, un changement de police de caractère,
+                etc. </p>
+    <p>À noter que dans cet exemple il est entendu que la description du rôle <q>friends of
+                    Mathias</q> (amis de Mathias) s'applique de la même façon aux deux rôles.</p>
+  </remarks>
+  <remarks versionDate="2008-04-05" xml:lang="ja">
+    <p>
+    属性<att>rend</att>は、当該グループが括弧、空白、字形の違いなどで
+    示されていることを示す。
+    </p>
+    <p>
+    この例では、役に関する情報<q>friends of Mathias</q>は、2つの役に同
+    じく当てはまると理解される。
+    </p>
+  </remarks>
+  <listRef>
+    <ptr target="#DRCAST" type="div3"/>
+  </listRef>
+</elementSpec>

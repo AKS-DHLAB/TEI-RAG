@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" module="core" xml:id="gi-listBibl" ident="listBibl">
+  <gloss versionDate="2005-01-14" xml:lang="en">citation list</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">인용 목록</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">書目列表</gloss>
+  <gloss versionDate="2009-01-06" xml:lang="fr">liste de références bibliographiques</gloss>
+  <gloss versionDate="2007-05-04" xml:lang="es">lista de cita</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">lista di citazioni</gloss>
+  <gloss versionDate="2017-06-13" xml:lang="de">Liste bibliografischer Angaben</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">contains a list of bibliographic citations of any kind.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">여러 종류의 서지 인용 목록을 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">包含任何種類的書目資料列表。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">書誌項目引用のリストを示す。</desc>
+  <desc versionDate="2009-01-06" xml:lang="fr">contient une liste de références bibliographiques de toute nature.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene una lista de citas bibliográficas de cualquier tipo.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene una lista di citazioni bibliografiche di qualsiasi natura.</desc>
+  <desc versionDate="2017-06-13" xml:lang="de">enthält eine Liste von bibliografischen Angaben jeglicher Art.</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.cmc"/>
+    <memberOf key="att.declarable"/>
+    <memberOf key="att.sortable"/>
+    <memberOf key="att.typed"/>
+    <memberOf key="model.biblLike"/>
+    <!-- model.listLike is incompatible with membership in model.biblLike since both are referenced from macro.inter -->
+    <memberOf key="model.frontPart"/>
+  </classes>
+  <content>
+    <sequence>
+      <classRef key="model.headLike" minOccurs="0" maxOccurs="unbounded"/>
+      <elementRef key="desc" minOccurs="0" maxOccurs="unbounded"/>
+      <alternate minOccurs="0" maxOccurs="unbounded">
+        <classRef key="model.milestoneLike" minOccurs="1" maxOccurs="1"/>
+        <elementRef key="relation" minOccurs="1" maxOccurs="1"/>
+        <elementRef key="listRelation" minOccurs="1" maxOccurs="1"/>
+      </alternate>
+      <sequence minOccurs="1" maxOccurs="unbounded">
+        <classRef key="model.biblLike" minOccurs="1" maxOccurs="unbounded"/>
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <classRef key="model.milestoneLike" minOccurs="1" maxOccurs="1"/>
+          <elementRef key="relation" minOccurs="1" maxOccurs="1"/>
+          <elementRef key="listRelation" minOccurs="1" maxOccurs="1"/>
+        </alternate>
+      </sequence>
+    </sequence>
+  </content>
+  <constraintSpec ident="listBibl-is-declarable" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:pattern is-a="declarable">
+        <sch:param name="tde" value="tei:listBibl"/>
+      </sch:pattern>
+    </constraint>
+  </constraintSpec>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-listBibl-egXML-eb">
+      <listBibl>
+        <head>Works consulted</head>
+        <bibl>Blain, Clements and Grundy: Feminist Companion to
+                    Literature in English (Yale, 1990)
+                </bibl>
+        <biblStruct>
+          <analytic>
+            <title>The Interesting story of the Children in the Wood</title>
+          </analytic>
+          <monogr>
+            <title>The Penny Histories</title>
+            <author>Victor E Neuberg</author>
+            <imprint>
+              <publisher>OUP</publisher>
+              <date>1968</date>
+            </imprint>
+          </monogr>
+        </biblStruct>
+      </listBibl>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-listBibl-egXML-sp">
+      <listBibl>
+        <head>Liste des ouvrages cités</head>
+        <bibl>Les Petits Romantiques </bibl>
+        <biblStruct>
+          <analytic>
+            <title>La poésie en prose</title>
+          </analytic>
+          <monogr>
+            <title>Aloysius Bertrand, "inventeur" du poème en prose</title>
+            <author>Bert Guégand</author>
+            <imprint>
+              <publisher>PUN</publisher>
+              <date>2000</date>
+            </imprint>
+          </monogr>
+        </biblStruct>
+      </listBibl>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-listBibl-egXML-gw" source="#biblzh-tw_n13">
+      <listBibl>
+        <head>參考書籍</head>
+        <bibl>潘定衡、楊朝文: 蚩尤的傳說 (貴陽：貴州民族出版社，1989 ) </bibl>
+        <biblStruct>
+          <analytic>
+            <title>中國古史的傳說時代 </title>
+          </analytic>
+          <monogr>
+            <title>苗族蚩尤神话，與逐鹿之戰。</title>
+            <author>吳曉東</author>
+            <imprint>
+              <publisher>北京：民族文學研究 </publisher>
+              <date> 1998 </date>
+            </imprint>
+          </monogr>
+        </biblStruct>
+      </listBibl>
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#COBITY"/>
+    <ptr target="#HD3"/>
+    <ptr target="#CCAS2"/>
+  </listRef>
+</elementSpec>

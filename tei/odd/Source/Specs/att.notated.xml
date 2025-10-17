@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" 
+  type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<classSpec xmlns="http://www.tei-c.org/ns/1.0" module="tei" type="atts" ident="att.notated">
+  <desc versionDate="2021-08-22" xml:lang="en">provides attributes to indicate any specialised notation used for element content.</desc>
+  <desc versionDate="2023-08-24" xml:lang="ja">要素の内容を対象とした特別な表記法を示す属性を提供する。</desc>
+  <attList>
+    <attDef ident="notation" usage="opt">
+      <desc versionDate="2012-03-26" xml:lang="en">names the notation used for the content of the element.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">요소 내용으로 사용되어 앞서 정의된 표기법 이름을 제시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">提供先前已定義過、適用於該元素內容的記號名稱。</desc>
+      <desc versionDate="2023-08-24" xml:lang="ja">当該要素の内容に用いられた表記法の名前を示す。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">précise le nom d'une notation définie précédemment,
+        utilisée dans le contenu de l'élément.</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">indica el nombre de una anotación definida
+        previamente y usada para el contenido de un elemento.</desc>
+      <desc versionDate="2007-01-21" xml:lang="it">fornisce il nome di un'annotazione definita
+        precedentemente utilizzata come contenuto dell'elemento.</desc>
+      <datatype><dataRef key="teidata.enumerated"/></datatype>
+    </attDef>
+  </attList>
+</classSpec>

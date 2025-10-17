@@ -1,0 +1,1084 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svrl:schematron-output xmlns:eg="http://www.tei-c.org/ns/Examples"
+                        xmlns:error="https://doi.org/10.5281/zenodo.1495494#error"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:rna="http://relaxng.org/ns/compatibility/annotations/1.0"
+                        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                        xmlns:sch1x="http://www.ascc.net/xml/schematron"
+                        xmlns:schxslt="https://doi.org/10.5281/zenodo.1495494"
+                        xmlns:schxslt-api="https://doi.org/10.5281/zenodo.1495494#api"
+                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                        xmlns:tei="http://www.tei-c.org/ns/1.0"
+                        xmlns:teix="http://www.tei-c.org/ns/Examples"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                        title="ISO Schematron rules">
+   <svrl:ns-prefix-in-attribute-values prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   <svrl:ns-prefix-in-attribute-values prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <svrl:ns-prefix-in-attribute-values prefix="eg" uri="http://www.tei-c.org/ns/Examples"/>
+   <svrl:ns-prefix-in-attribute-values prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <svrl:ns-prefix-in-attribute-values prefix="rng" uri="http://relaxng.org/ns/structure/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="rna" uri="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   <svrl:ns-prefix-in-attribute-values prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
+   <svrl:ns-prefix-in-attribute-values prefix="teix" uri="http://www.tei-c.org/ns/Examples"/>
+   <svrl:metadata xmlns:dct="http://purl.org/dc/terms/"
+                  xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+      <dct:creator>
+         <dct:Agent>
+            <skos:prefLabel>SAXON/HE 10.3</skos:prefLabel>
+         </dct:Agent>
+      </dct:creator>
+      <dct:created>2025-09-04T16:15:26.034852718Z</dct:created>
+      <dct:source>
+         <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <dct:creator>
+               <dct:Agent>
+                  <skos:prefLabel>SchXslt/1.10.1 SAXON/HE 10.3</skos:prefLabel>
+                  <schxslt.compile.typed-variables xmlns="https://doi.org/10.5281/zenodo.1495494#">true</schxslt.compile.typed-variables>
+               </dct:Agent>
+            </dct:creator>
+            <dct:created>2025-09-04T16:15:25.885724895Z</dct:created>
+         </rdf:Description>
+      </dct:source>
+   </svrl:metadata>
+   <svrl:active-pattern name="schematron-constraint-CMC_generatedBy_within_post-1"
+                        id="schematron-constraint-CMC_generatedBy_within_post-1"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-when-2"
+                        id="schematron-constraint-att-datable-w3c-when-2"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-from-3"
+                        id="schematron-constraint-att-datable-w3c-from-3"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-to-4"
+                        id="schematron-constraint-att-datable-w3c-to-4"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-only_1_ODD_source-5"
+                        id="schematron-constraint-only_1_ODD_source-5"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-targetLang-6"
+                        id="schematron-constraint-targetLang-6"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-schemeVersionRequiresScheme-7"
+                        id="schematron-constraint-schemeVersionRequiresScheme-7"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-subtypeTyped-8"
+                        id="schematron-constraint-subtypeTyped-8"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-p-in-ab-or-p-9"
+                        id="schematron-constraint-abstractModel-structure-p-in-ab-or-p-9"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-p-in-l-10"
+                        id="schematron-constraint-abstractModel-structure-p-in-l-10"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-core-11"
+                        id="schematron-constraint-jtei.sch-core-11"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-cit-12"
+                        id="schematron-constraint-jtei.sch-cit-12"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-deprecationInfo-only-in-deprecated-13"
+                        id="schematron-constraint-deprecationInfo-only-in-deprecated-13"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-gap-14"
+                        id="schematron-constraint-jtei.sch-gap-14"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-gap-ws-15"
+                        id="schematron-constraint-jtei.sch-gap-ws-15"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-ptr-multipleTargets-16"
+                        id="schematron-constraint-jtei.sch-ptr-multipleTargets-16"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-ptrAtts-17"
+                        id="schematron-constraint-ptrAtts-17"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-ref-multipleTargets-18"
+                        id="schematron-constraint-jtei.sch-ref-multipleTargets-18"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ref"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-biblref-parentheses-19"
+                        id="schematron-constraint-jtei.sch-biblref-parentheses-19"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ref[@type eq 'bibl']"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-biblref-target-20"
+                        id="schematron-constraint-jtei.sch-biblref-target-20"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ref[@type eq 'bibl']"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-biblref-type-21"
+                        id="schematron-constraint-jtei.sch-biblref-type-21"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ref[id(substring-after(@target, '#'))/self::tei:bibl]"/>
+   <svrl:active-pattern name="schematron-constraint-refAtts-22"
+                        id="schematron-constraint-refAtts-22"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ref"/>
+   <svrl:active-pattern name="schematron-constraint-gloss-list-must-have-labels-23"
+                        id="schematron-constraint-gloss-list-must-have-labels-23"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-head-number-24"
+                        id="schematron-constraint-jtei.sch-head-number-24"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:head"/>
+   <svrl:fired-rule context="tei:head"/>
+   <svrl:fired-rule context="tei:head"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-figure-head-25"
+                        id="schematron-constraint-jtei.sch-figure-head-25"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-note-punctuation-26"
+                        id="schematron-constraint-jtei.sch-note-punctuation-26"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-note-punctuation-27"
+                        id="schematron-constraint-jtei.sch-note-punctuation-27"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-note-punctuation-28"
+                        id="schematron-constraint-jtei.sch-note-punctuation-28"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-note-punctuation-29"
+                        id="schematron-constraint-jtei.sch-note-punctuation-29"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-note-blocks-30"
+                        id="schematron-constraint-jtei.sch-note-blocks-30"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-graphic-dimensions-31"
+                        id="schematron-constraint-jtei.sch-graphic-dimensions-31"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-graphic-context-32"
+                        id="schematron-constraint-jtei.sch-graphic-context-32"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-author-33"
+                        id="schematron-constraint-jtei.sch-author-33"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:titleStmt/tei:author"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-respSmt-34"
+                        id="schematron-constraint-jtei.sch-respSmt-34"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-bibl-id-35"
+                        id="schematron-constraint-jtei.sch-bibl-id-35"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule role="warning"
+                    see="https://tei-c.org/release/doc/tei-p5-exemplars/html/tei_jtei.doc.html#back"
+                    context="tei:back/tei:div[@type eq 'bibliography']//tei:bibl"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-bibl-orphan-36"
+                        id="schematron-constraint-jtei.sch-bibl-orphan-36"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule role="warning"
+                    context="tei:back/tei:div[@type eq 'bibliography']//tei:bibl"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-bibl-endpunctuation-37"
+                        id="schematron-constraint-jtei.sch-bibl-endpunctuation-37"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule role="warning"
+                    see="https://tei-c.org/release/doc/tei-p5-exemplars/html/tei_jtei.doc.html#back"
+                    context="tei:back/tei:div[@type eq 'bibliography']//tei:bibl"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-title-journal-CMOS-38"
+                        id="schematron-constraint-jtei.sch-title-journal-CMOS-38"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-table-39"
+                        id="schematron-constraint-jtei.sch-table-39"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-title-40"
+                        id="schematron-constraint-jtei.sch-title-40"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:titleStmt"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-doi-order-41"
+                        id="schematron-constraint-jtei.sch-doi-order-41"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-rendition-42"
+                        id="schematron-constraint-jtei.sch-rendition-42"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-att-43"
+                        id="schematron-constraint-jtei.sch-att-43"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-tag-44"
+                        id="schematron-constraint-jtei.sch-tag-44"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-val-45"
+                        id="schematron-constraint-jtei.sch-val-45"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-article-keywords-46"
+                        id="schematron-constraint-jtei.sch-article-keywords-46"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:text[not(tei:body/tei:div[@type = ('editorialIntroduction')])]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-article-abstract-47"
+                        id="schematron-constraint-jtei.sch-article-abstract-47"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:text[not(tei:body/tei:div[@type = ('editorialIntroduction')])]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-article-back-48"
+                        id="schematron-constraint-jtei.sch-article-back-48"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:text[not(tei:body/tei:div[@type = ('editorialIntroduction')])]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-body-49"
+                        id="schematron-constraint-jtei.sch-body-49"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-divtypes-front-50"
+                        id="schematron-constraint-jtei.sch-divtypes-front-50"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:div[@type = $div.types.front]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-divtypes-front2-51"
+                        id="schematron-constraint-jtei.sch-divtypes-front2-51"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:front/tei:div"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-divtypes-back-52"
+                        id="schematron-constraint-jtei.sch-divtypes-back-52"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule see="https://tei-c.org/release/doc/tei-p5-exemplars/html/tei_jtei.doc.html#back"
+                    context="tei:div[@type = ('bibliography', 'appendix')]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-divtypes-body-53"
+                        id="schematron-constraint-jtei.sch-divtypes-body-53"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-div-head-54"
+                        id="schematron-constraint-jtei.sch-div-head-54"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-div-in-l-55"
+                        id="schematron-constraint-abstractModel-structure-div-in-l-55"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-div-in-ab-or-p-56"
+                        id="schematron-constraint-abstractModel-structure-div-in-ab-or-p-56"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:div"/>
+   <svrl:fired-rule context="tei:div"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-front-abstract-57"
+                        id="schematron-constraint-jtei.sch-front-abstract-57"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:front"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-back-58"
+                        id="schematron-constraint-jtei.sch-back-58"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:back"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-supplied-59"
+                        id="schematron-constraint-jtei.sch-supplied-59"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-straightApos-60"
+                        id="schematron-constraint-jtei.sch-straightApos-60"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:mentioned)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-LRquotes-61"
+                        id="schematron-constraint-jtei.sch-LRquotes-61"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-quotationMarks-62"
+                        id="schematron-constraint-jtei.sch-quotationMarks-62"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-doubleHyphens-63"
+                        id="schematron-constraint-jtei.sch-doubleHyphens-63"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-rangeHyphen-64"
+                        id="schematron-constraint-jtei.sch-rangeHyphen-64"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:idno|ancestor::tei:date)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-ieEg-65"
+                        id="schematron-constraint-jtei.sch-ieEg-65"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-nonbreakingspace-66"
+                        id="schematron-constraint-jtei.sch-nonbreakingspace-66"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-localLinkTarget-67"
+                        id="schematron-constraint-jtei.sch-localLinkTarget-67"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="@*[self::attribute(corresp)|self::attribute(target)|self::attribute(from)|self::attribute(to)|self::attribute(ref)|self::attribute(rendition)|self::attribute(resp)|self::attribute(source)][not(ancestor::eg:egXML)][some $i in tokenize(., '\s+') satisfies starts-with($i, '#')]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-renditionTarget-68"
+                        id="schematron-constraint-jtei.sch-renditionTarget-68"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-quoteDelim-69"
+                        id="schematron-constraint-jtei.sch-quoteDelim-69"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-crossref-id-70"
+                        id="schematron-constraint-jtei.sch-crossref-id-70"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-formalCrossref-71"
+                        id="schematron-constraint-jtei.sch-formalCrossref-71"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:fired-rule role="warning"
+                    context="text()[not(ancestor::tei:eg|ancestor::eg:egXML|ancestor::tei:code|ancestor::tei:tag|ancestor::tei:ref[not(@type='crossref')])]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-crossrefTargetType-72"
+                        id="schematron-constraint-jtei.sch-crossrefTargetType-72"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-crossrefType-73"
+                        id="schematron-constraint-jtei.sch-crossrefType-73"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="tei:ptr[not(@type='crossref')]|tei:ref[not(@type='crossref')]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-centuries-74"
+                        id="schematron-constraint-jtei.sch-centuries-74"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:fired-rule context="text()[not(ancestor::tei:quote or ancestor::tei:title)]"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.sch-teiVersion-75"
+                        id="schematron-constraint-jtei.sch-teiVersion-75"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+   <svrl:active-pattern name="schematron-constraint-jtei.jtei-url-76"
+                        id="schematron-constraint-jtei.jtei-url-76"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_jtei.tei"/>
+</svrl:schematron-output>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" module="textstructure" xml:id="gi-body" ident="body">
+  <gloss versionDate="2005-01-14" xml:lang="en">text body</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">텍스트 본문</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">正文</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">corps du texte</gloss>
+  <gloss versionDate="2017-06-13" xml:lang="de">Textkörper</gloss>
+  <gloss versionDate="2007-05-04" xml:lang="es">cuerpo del texto</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">corpo del testo</gloss>
+  <gloss versionDate="2023-09-27" xml:lang="ja">テキスト本文</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">contains the whole body of a single unitary text, excluding any front or back matter.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">전면부 또는 후면부 자료를 배제한 단일 텍스트의 전체 본문을 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">單篇文章的整體部分，不包含正文前及正文後資訊。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">前付、後付を除いた、単一の作品の本文全体を示す。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">contient la totalité du corps d’un seul texte simple, à
+  l’exclusion de toute partie pré- ou post-liminaire.</desc>
+  <desc versionDate="2017-06-13" xml:lang="de">enthält den gesamten Textkörper eines eigenständigen Textes, außer den Vorspann (front) und Nachspann (back).</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene el cuerpo completo de un texto unitario,
+  excluyendo los eventuales añadidos paratextuales (prólogos, dedicatorias, apéndices, etc.) al
+  inicio o fin de un texto.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene l'intero corpo di un testo unitario, esclusi
+  eventuale peritesto iniziale e finale</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.declaring"/>
+  </classes>
+  <content>
+    <sequence>
+      <!-- globals as usual -->      
+      <classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/>
+      <!--possibly some divTops, interspersed with globals -->      
+      <sequence minOccurs="0">
+        <classRef key="model.divTop"/>
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <classRef key="model.global"/>
+          <classRef key="model.divTop"/>
+        </alternate>          
+      </sequence>
+      <!-- possibly some generated divs, interspersed with globals -->      
+      <sequence minOccurs="0">
+        <classRef key="model.divGenLike"/>
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <classRef key="model.global"/>
+          <classRef key="model.divGenLike"/>
+        </alternate>          
+      </sequence>
+      <!-- 
+           now a choice between:           
+           a) some divLike things, with globals and generated
+              divisions after them if needed 
+           b) some div1Like things, with globals
+              and generated divisionss after them if needed 
+           c) same again, preceded by model.common (or <schemaSpec>)
+      -->
+      <alternate>
+        <!-- a -->          
+        <sequence minOccurs="1" maxOccurs="unbounded">
+          <classRef key="model.divLike"/>
+          <alternate minOccurs="0" maxOccurs="unbounded">
+            <classRef key="model.global"/>
+            <classRef key="model.divGenLike"/>
+          </alternate>
+        </sequence>
+        <!-- b -->
+        <sequence minOccurs="1" maxOccurs="unbounded">
+          <classRef key="model.div1Like"/>
+          <alternate minOccurs="0" maxOccurs="unbounded">
+            <classRef key="model.global"/>
+            <classRef key="model.divGenLike"/>
+          </alternate>
+        </sequence>
+        <!-- c -->
+        <sequence>
+          <sequence minOccurs="1" maxOccurs="unbounded">
+            <alternate minOccurs="1" maxOccurs="1">
+              <elementRef key="schemaSpec"/>
+              <classRef key="model.common"/>
+            </alternate>
+            <classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/>
+          </sequence>
+          <alternate minOccurs="0">
+            <!-- a -->
+            <sequence minOccurs="1" maxOccurs="unbounded">
+              <classRef key="model.divLike"/>
+              <alternate minOccurs="0" maxOccurs="unbounded">
+                <classRef key="model.global"/>
+                <classRef key="model.divGenLike"/>
+              </alternate>
+            </sequence>
+            <!-- b -->
+            <sequence minOccurs="1" maxOccurs="unbounded">
+              <classRef key="model.div1Like"/>
+              <alternate minOccurs="0" maxOccurs="unbounded">
+                <classRef key="model.global"/>
+                <classRef key="model.divGenLike"/>
+              </alternate>
+            </sequence>
+          </alternate>
+        </sequence>
+      </alternate>
+      <!-- end of choice -->
+      <!-- finally, some divBottoms interspersed with globals  -->
+      <sequence minOccurs="0" maxOccurs="unbounded">
+        <classRef key="model.divBottom"/>
+        <classRef key="model.global" minOccurs="0" maxOccurs="unbounded"/>
+      </sequence>
+    </sequence>
+  </content>
+  <exemplum xml:lang="mul">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-body-egXML-vp" source="#caedmon" xml:lang="ang">
+      <body>
+        <l>Nu scylun hergan hefaenricaes uard</l>
+        <l>metudæs maecti end his modgidanc</l>
+        <l>uerc uuldurfadur sue he uundra gihuaes</l>
+        <l>eci dryctin or astelidæ</l>
+        <l>he aerist scop aelda barnum</l>
+        <l>heben til hrofe haleg scepen.</l>
+        <l>tha middungeard moncynnæs uard</l>
+        <l>eci dryctin æfter tiadæ</l>
+        <l>firum foldu frea allmectig</l>
+        <trailer>primo cantauit Cædmon istud carmen.</trailer>
+      </body>
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#DS"/>
+  </listRef>
+</elementSpec>

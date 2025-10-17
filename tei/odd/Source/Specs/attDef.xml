@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" module="tagdocs" xml:id="gi-attDef" ident="attDef">
+  <gloss versionDate="2005-01-14" xml:lang="en">attribute definition</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">속성 정의</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">屬性定義</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">définition d'attribut</gloss>
+  <gloss versionDate="2007-05-04" xml:lang="es">definición de atributo</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">definizione di attributo</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">contains the definition of a single attribute.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">단일 속성 정의를 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">包含單一屬性的定義。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">1つの属性の定義を示す。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">contient la définition d'un attribut.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene la definición de un único atributo.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene la definizione di un unico attributo</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.identified"/>
+    <memberOf key="att.namespaceable"/>
+  </classes>
+  <content>
+    <sequence>      
+        <alternate minOccurs="0" maxOccurs="unbounded">
+          <classRef key="model.identSynonyms"/>
+          <classRef key="model.descLike"/>
+        </alternate>
+        <elementRef key="datatype" minOccurs="0"/>
+        <elementRef key="constraintSpec" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="defaultVal" minOccurs="0"/>
+        <alternate minOccurs="0">
+          <elementRef key="valList"/>     
+          <elementRef key="valDesc" minOccurs="1" maxOccurs="unbounded"/>
+        </alternate>
+        <elementRef key="exemplum" minOccurs="0" maxOccurs="unbounded"/>
+        <elementRef key="remarks" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+  </content>
+  <constraintSpec ident="attDefContents" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:ns prefix="teix" uri="http://www.tei-c.org/ns/Examples"/>
+      <sch:rule context="tei:attDef">
+        <sch:assert test="ancestor::teix:egXML[ @valid eq 'feasible']
+                       or @mode eq 'change'
+                       or @mode eq 'delete'
+                       or tei:datatype
+                       or tei:valList[ @type eq 'closed']">
+          Attribute: the definition of the @<sch:value-of select="@ident"/> attribute in the
+          <sch:value-of select="ancestor::*[@ident][1]/@ident"/>
+          <sch:value-of select="'&#x20;'"/>
+          <sch:value-of select="local-name(ancestor::*[@ident][1])"/> should
+          have a closed valList or a datatype
+        </sch:assert>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  <constraintSpec ident="noDefault4Required" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:rule context="tei:attDef[@usage eq 'req']">
+        <sch:report test="tei:defaultVal">Since the @<sch:value-of select="@ident"/> attribute is required, it will always be specified. Thus the default value (of "<sch:value-of select="normalize-space(tei:defaultVal)"/>") will never be used. Either change the definition of the attribute so it is not required ("rec" or "opt"), or remove the defaultVal element.</sch:report>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  <!-- The next 2 <constraintSpec>s produce exactly the same message, and -->
+  <!-- thus arguably should be only 1 <constraintSpec> with the test on -->
+  <!-- @maxOccurs moved into the @test of the assertion. However, I have -->
+  <!-- made them separate for now to make debugging easier. After we're -->
+  <!-- confident these work properly, could condense them to one. -->
+  <!-- -Syd, 2015-03-29 -->
+  <constraintSpec ident="defaultIsInClosedList-twoOrMore" scheme="schematron" xml:lang="en">
+    <!-- The use of the '>' operator (expressed as "&gt;"), below, is
+         not needed for comparison of a sequence, but seems to
+         automatically handle a left hand operand that is an
+         untypedAtomic, whereas the "gt" operator did not.
+         — Syd, 2023-12-14 -->
+    <constraint>
+      <sch:rule context="tei:attDef[     tei:defaultVal
+                                     and tei:valList[ @type eq 'closed']
+                                     and tei:datatype[ @maxOccurs &gt; 1  or  @minOccurs &gt; 1  or  @maxOccurs eq 'unbounded']
+                                   ]">
+        <sch:assert test="tokenize(normalize-space(tei:defaultVal),'&#x20;') = tei:valList/tei:valItem/@ident">In the <sch:value-of select="local-name(ancestor::*[@ident][1])"/> defining
+        <sch:value-of select="ancestor::*[@ident][1]/@ident"/> the default value of the
+        @<sch:value-of select="@ident"/> attribute is not among the closed list of possible
+        values</sch:assert>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  <constraintSpec ident="defaultIsInClosedList-one" scheme="schematron" xml:lang="en">
+    <constraint>
+      <sch:rule context="tei:attDef[     tei:defaultVal
+                                     and tei:valList[ @type eq 'closed']
+                                     and tei:datatype[
+                                            not(@maxOccurs)
+                                        or  ( if ( @maxOccurs castable as xs:integer ) then ( @maxOccurs cast as xs:integer eq 1 ) else false() )
+                                                     ]
+                                   ]">
+        <sch:assert test="string(tei:defaultVal) = tei:valList/tei:valItem/@ident">In the <sch:value-of select="local-name(ancestor::*[@ident][1])"/> defining
+        <sch:value-of select="ancestor::*[@ident][1]/@ident"/> the default value of the
+        @<sch:value-of select="@ident"/> attribute is not among the closed list of possible
+        values</sch:assert>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  <attList>
+    <attDef ident="usage" usage="opt">
+      <desc versionDate="2011-08-31" xml:lang="en">specifies the optionality of the attribute.</desc>
+      <desc versionDate="2007-12-20" xml:lang="ko">속성 또는 요소의 수의성을 명시한다.</desc>
+      <desc versionDate="2007-05-02" xml:lang="zh-TW">說明屬性或元素的必備性。</desc>
+      <desc versionDate="2008-04-05" xml:lang="ja">属性または要素の選択性を示す。</desc>
+      <desc versionDate="2007-06-12" xml:lang="fr">précise qu'un attribut ou un élément sont facultatifs.</desc>
+      <desc versionDate="2007-05-04" xml:lang="es">especifica el caracter opcional de un atributo o un elemento</desc>
+      <desc versionDate="2007-01-21" xml:lang="it">indica il carattere facoltativo di un attributo o elemento</desc>
+      <datatype><dataRef key="teidata.enumerated"/></datatype>
+      <defaultVal>opt</defaultVal>
+      <valList type="closed">
+        <valItem ident="req">
+          <gloss versionDate="2005-01-14" xml:lang="en">required</gloss>
+          <gloss versionDate="2008-04-05" xml:lang="ja">必須。</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">requis</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">richiesto</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">requerido</gloss>
+          <gloss xml:lang="zh-TW" versionDate="2007-05-02">必備的</gloss>
+        </valItem>
+        <valItem ident="rec">
+          <gloss versionDate="2005-01-14" xml:lang="en">recommended</gloss>
+          <gloss xml:lang="zh-TW" versionDate="2007-05-02">推薦的</gloss>
+          <gloss versionDate="2008-04-05" xml:lang="ja">推奨。</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">recommandé</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">consigliato</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">recomendado</gloss>
+        </valItem>
+        <valItem ident="opt">
+          <gloss versionDate="2005-01-14" xml:lang="en">optional</gloss>
+          <gloss versionDate="2008-04-05" xml:lang="ja">選択的。</gloss>
+          <gloss versionDate="2007-06-12" xml:lang="fr">facultatif</gloss>
+          <gloss versionDate="2007-11-06" xml:lang="it">facoltativo</gloss>
+          <gloss versionDate="2007-05-04" xml:lang="es">opcional</gloss>
+          <gloss xml:lang="zh-TW" versionDate="2007-05-02">非必備的</gloss>
+        </valItem>
+      </valList>
+    </attDef>
+  </attList>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-attDef-egXML-yj">
+      <attDef usage="rec" ident="type">
+        <desc>specifies a name conventionally used for this level of subdivision, e.g.
+        <val>act</val>, <val>volume</val>, <val>book</val>, <val>section</val>, <val>canto</val>,
+        etc.</desc>
+        <datatype>
+          <dataRef key="teidata.word"/>
+        </datatype>
+      </attDef>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-attDef-egXML-dt">
+      <attDef usage="rec" ident="type">
+        <desc>spécifie un nom conventionnellement utilisé pour ce niveau de divisions , par ex.
+        <val>acte</val>, <val>volume</val>, <val>livre</val>, <val>section</val>,
+        <val>chant</val>, etc.</desc>
+        <datatype>
+          <dataRef key="teidata.word"/>
+        </datatype>
+      </attDef>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-attDef-egXML-wv">
+      <attDef usage="rec" ident="type">
+        <desc>具體指定慣例上使用的分部名稱，例如：
+        <val>幕</val>, <val>卷</val>, <val>冊</val>, <val>節</val>, <val>篇章</val>,
+        等。</desc>
+        <datatype>
+          <dataRef key="teidata.word"/>
+        </datatype>
+      </attDef>
+    </egXML>
+  </exemplum>
+  <listRef>
+    <ptr target="#TDATT"/>
+  </listRef>
+</elementSpec>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<classSpec xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" ident="att.repeatable" type="atts" module="tagdocs">
+  <desc versionDate="2021-08-22" xml:lang="en">provides attributes for the elements which define
+  component parts of a content model.</desc>
+  <desc versionDate="2023-09-27" xml:lang="ja">内容モデルの構成部分を定義するエレメントのための属性を提供する。</desc>
+  <!-- we know that @minOccurs is castable as an integer, and we know that -->
+  <!-- @maxOccurs is either "unbounded" or castable as an integer, because -->
+  <!-- they have passed standard grammar-based validation. -->
+  <constraintSpec ident="MINandMAXoccurs" scheme="schematron" xml:lang="en">
+    <!-- <desc>The value of <att>minOccurs</att> should always be less than or
+         equal to that of <att>maxOccurs</att>. Since the default value of
+         <att>maxOccurs</att> is 1, when <att>maxOccurs</att> is not specified
+         <att>minOccurs</att> must always be less than or equal to 1.</desc> -->
+    <constraint>
+      <sch:rule context="tei:*[ @minOccurs and @maxOccurs ]">
+        <sch:let name="min" value="@minOccurs cast as xs:integer"/>
+        <sch:let name="max" value="if ( normalize-space( @maxOccurs ) eq 'unbounded') then -1 else @maxOccurs cast as xs:integer"/>
+        <sch:assert test="$max eq -1 or $max ge $min">@maxOccurs should be greater than or equal to @minOccurs</sch:assert>
+      </sch:rule>
+      <sch:rule context="tei:*[ @minOccurs and not( @maxOccurs ) ]">
+        <sch:assert test="@minOccurs cast as xs:integer lt 2">When @maxOccurs is not specified, @minOccurs must be 0 or 1</sch:assert>
+      </sch:rule>
+    </constraint>
+  </constraintSpec>
+  <attList>
+    <attDef ident="minOccurs">
+      <gloss versionDate="2013-11-21" xml:lang="en">minimum number of occurrences</gloss>
+      <gloss versionDate="2007-12-20" xml:lang="ko">빈도의 최소 수</gloss>
+      <gloss versionDate="2007-05-02" xml:lang="zh-TW">出現次數最小值</gloss>
+      <gloss versionDate="2007-06-12" xml:lang="fr">nombre minimum d'occurrences</gloss>
+      <gloss versionDate="2007-11-06" xml:lang="it">numero minimo di occorrenze</gloss>
+      <gloss versionDate="2007-05-04" xml:lang="es">número mínimo de apariciones</gloss>
+      <gloss versionDate="2023-09-27" xml:lang="ja">最小出現数</gloss>
+      <desc versionDate="2013-11-21" xml:lang="en">indicates the smallest number of times this
+      component may occur.</desc>
+      <desc versionDate="2023-09-27" xml:lang="ja">この部品が出現し得る最小回数を示す。</desc>
+      
+      
+      <datatype>
+        <dataRef key="teidata.count"/>
+      </datatype>
+      <defaultVal>1</defaultVal>
+    </attDef>
+    <attDef ident="maxOccurs">
+      <gloss versionDate="2007-12-20" xml:lang="en">maximum number of occurrences</gloss>
+      <gloss versionDate="2007-12-20" xml:lang="ko">빈도의 최대 수</gloss>
+      <gloss versionDate="2007-05-02" xml:lang="zh-TW">出現次數最大值</gloss>
+      <gloss versionDate="2007-06-12" xml:lang="fr">nombre maximum d'occurrences.</gloss>
+      <gloss versionDate="2007-11-06" xml:lang="it">numero minimo di occorrenze</gloss>
+      <gloss versionDate="2007-05-04" xml:lang="es">número máximo de apariciones.</gloss>
+      <gloss versionDate="2023-09-27" xml:lang="ja">最大出現数</gloss>
+      <desc versionDate="2013-11-21" xml:lang="en">indicates the largest number of times this
+      component may occur.</desc>
+      <desc versionDate="2023-09-27" xml:lang="ja">概算推量のための最大推定値を与える。</desc>
+      <datatype>
+        <dataRef key="teidata.unboundedCount"/>
+      </datatype>
+      <defaultVal>1</defaultVal>
+    </attDef>
+  </attList>
+  <remarks versionDate="2016-12-08" xml:lang="en">
+    <p>The value of <att>minOccurs</att> must always be less than or equal to that of
+    <att>maxOccurs</att>. Since the default value of <att>maxOccurs</att> is 1, when
+    <att>maxOccurs</att> is not specified <att>minOccurs</att> must always be less than or equal
+    to 1. The default value of <att>minOccurs</att> is also 1, and therefore, when
+    <att>minOccurs</att> is not specified the value of <att>maxOccurs</att> must 
+    always be greater than or equal to 1. An ODD processor should raise an error if either of
+    these conditions is not met.</p>
+  </remarks>
+  <remarks versionDate="2023-09-27" xml:lang="ja"><p>
+  <att>minOccurs</att>の値は常に<att>maxOccurs</att>の値以下でなければならない。<att>maxOccurs</att>のデフォルト値が1なので、<att>maxOccurs</att>が指定されない時には、<att>minOccurs</att>は1以下でなければならない。
+    <att>minOccurs</att>のデフォルト値も1なので、<att>minOccurs</att>が指定されない時には、<att>maxOccurs</att>は常に1以上でなければならない。これらの条件のいずれかが満たされなければ、ODDプロセッサはエラーとなるだろう。</p>
+  </remarks>
+</classSpec>

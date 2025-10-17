@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:tei="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>A test file for TEI which produces errors</title>
+      </titleStmt>
+      <publicationStmt>
+        <p>Unpublished</p>
+      </publicationStmt>
+      <sourceDesc>
+        <ab>Born digital</ab>
+        <p>This <gi>sourceDesc</gi> is in error because it has a sibling
+        <gi>sourceDesc</gi> but does not have an <att>xml:id</att>.</p>
+      </sourceDesc>
+      <sourceDesc xml:id="decltest01" default="true">
+        <bibl xml:id="decltest02" default="false">This sequence of elements</bibl>
+        <bibl xml:id="decltest03"                >should not raise any</bibl>
+        <bibl xml:id="decltest04" default="false">errors, at least not</bibl>
+        <bibl xml:id="decltest05"                >any from the <name>att-declarable</name></bibl>
+        <bibl xml:id="decltest06" default="true" >constraint specification.</bibl>
+      </sourceDesc>
+      <sourceDesc xml:id="decltest07">
+        <bibl xml:id="decltest08" default="false">This sequence of elements</bibl>
+        <bibl xml:id="decltest09"                >should raise an</bibl>
+        <bibl xml:id="decltest10" default="false">error because there no</bibl>
+        <bibl xml:id="decltest11"                >siblings with a @default of</bibl>
+        <bibl xml:id="decltest12" default="false">"true" (or "1").</bibl>
+      </sourceDesc>
+      <sourceDesc xml:id="decltest13">
+        <bibl xml:id="decltest14" default="false">This sequence of elements</bibl>
+        <bibl xml:id="decltest15"                >should raise an</bibl>
+        <bibl xml:id="decltest16" default="1"    >error because there are</bibl>
+        <bibl xml:id="decltest17"                >two siblings with a @default</bibl>
+        <bibl xml:id="decltest18" default="true" >of "true" (or "1").</bibl>
+      </sourceDesc>
+    </fileDesc>
+    <encodingDesc>
+      <!--
+          TODO duncdrum test for uniHan schematron constraints for
+          Phase 4 #1805 <charDecl><glyph xml:id="r1"><unihanProp
+          name="kRSUnicode" value="r1 r2 r3"/></glyph></charDecl> -->
+      <!--
+          MDH 2013-04-12:
+          The following tests a Schematron constraint to the effect that 
+          @schemeVersion cannot be used unless @scheme is present and 
+          has a value which corresponds to a style language.
+      -->
+      <styleDefDecl schemeVersion="2.1"/>
+      
+      <!--
+          MDH 2013-02-01:
+          The following tests a Schematron constraint to the effect that if 
+          @method="parallel-segmentation" then @location must be "internal".
+      -->
+      <variantEncoding method="parallel-segmentation" location="external"/>
+      <editorialDecl>
+        <quotation/>
+      </editorialDecl>
+    </encodingDesc>
+  </teiHeader>
+  <facsimile>
+    <front>
+      <head>Test for <val>no_facsimile_text_nodes</val></head>
+      <p>Test that non-whitespace-only text nodes in
+      <code>facsimile//line</code> or <code>facsimile//zone</code> are
+      flagged as errors. Note that <name
+      type="file">testbasic.xml</name>, <name
+      type="file">testtranscr2.xml</name>, <name
+      type="file">testtranscr4.xml</name>, and <name
+      type="file">testtranscr.xml</name> test that a
+      <code>facsimile//zone</code> that does <emph>not</emph> have a
+      non-whitespace-only text node is <emph>not</emph> flagged as an
+      error.</p>
+    </front>
+    <surface>
+      <zone>I see the bad moon risin’</zone>
+      <zone>I see trouble on the way</zone>
+      <zone>I see earthquakes and lightnin’</zone>
+      <zone>I see bad times today</zone>
+    </surface>
+    <surface>
+      <line>In Penny Lane, there is a barber showing photographs</line>
+      <line>Of every head he's had the pleasure to know</line>
+      <line>And all the people that come and go</line>
+      <line>Stop and say hello</line>
+    </surface>
+  </facsimile>
+  <text>
+    <body>
+      <p>This document is for testing validation.</p>
+      <p>
+        <delSpan/>
+      </p>
+      <p>This tests the constraint that every <gi>lg</gi> element
+      should have at least one of <gi>l</gi>, <gi>lg</gi> or
+      <gi>gap</gi> inside it.</p>
+      <p>Added by MDH.</p>
+
+      <div>
+        <lg/>
+      </div>
+
+      <div>
+        <head>Testing schematron constraints</head>
+
+        <p xml:lang="la">
+          sicut erat in
+          <bibl><author>freddy</author></bibl> principia
+          <list>
+            <item>
+              <num value="0.234"/>
+              <num value="0.0234E23"/>
+              <num value="1/2"/> cats
+            </item>
+          </list>
+        </p>
+
+        <div>
+          <p>Added by MDH. This tests the Schematron constraint that any
+          element with <att>calendar</att> must have some textual
+          content.</p>
+          <p><date when="2012-09-06" calendar="http://en.wikipedia.org/wiki/Gregorian_calendar"/></p>
+        </div>
+
+	<div>
+	  <head generatedBy="human">For CMC</head>
+	  <ab>The heading above should be invalid due to a
+ 	    <att>generatedBy</att> that is not on a <gi>post</gi>
+	    or descendant thereof.</ab>
+	  <post xml:id="cmc_detest_p01" generatedBy="errorMaker">
+	    This post should be invalid due to an illegal value of <att>generatedBy</att>
+	  </post>
+	  <post xml:id="cmc_detest_p02" generatedBy="human">
+	    This post should be valid.
+	  </post>
+	  <post xml:id="cmc_detest_p03" generatedBy="human" replyTo="#cmc_detest_p01">
+	    This post should be valid.
+	    <signed generatedBy="system">
+	      Well, this signature was not really generated by the
+	      system, but is here to test that it could have been.
+	    </signed>
+	  </post>
+	  <post xml:id="cmc_detest_p04" modality="rollin’">
+	    This post should be invalid due to an illegal value of <att>modality</att>
+	  </post>
+	  <div>
+	    <p>
+	      <s generatedBy="human">This sentence should flag an
+	      error, as the <att>generatedBy</att> is not within a
+	      <gi>post</gi>.</s>
+	    </p>
+	  </div>
+	</div>
+
+        <div type="testingSpan">
+          <p><del>This has some content which is OK </del>
+          <delSpan spanTo="#ds1"/>This one doesn't<anchor xml:id="ds1"/> but that's also OK.
+          <delSpan/> That one (just to my left) is illegal
+          <delSpan spanTo="#ds2"/> as is that one
+          <delSpan spanTo="notMeaningful"/> but that one will not be reported either way</p>
+	</div>
+	
+	<div type="canon">
+          <head>Canon 1</head>
+          <p>hello</p>
+          <div type="canonText">
+            <head>A Canon Text</head>
+            <p>hello</p>
+          </div>
+        </div>
+        <div type="canon">
+          <head>Canon 2</head>
+          <p>hello</p>
+          <div type="canonText">
+            <head>A Canon Text</head>
+            <p>hello</p>
+          </div>
+          <div type="canonText">
+            <head>A 2nd Canon Text</head>
+            <p>hello</p>
+          </div>
+        </div>
+        <div type="canon">
+          <head>Canon 3</head>
+          <div type="canon">
+            <head>Canon 4</head>
+          </div>
+        </div>
+        <div type="register">
+          <head>Register 1</head>
+          <div type="canon">
+            <head>Canon 5</head>
+          </div>
+        </div>
+        <div type="redundant">
+          <p>
+            <s>This sentence contains
+            <s>an illegally nested phrase</s>
+            and should trigger a schematron squawk</s>
+          </p>
+        </div>
+      </div>
+      <div type="test">
+
+        <p>
+          Testing multiple occurrences of a datatype in a single
+          attribute value. The following should be valid:
+          <distinct type="valid" o01="0"   o02="0"   o0i="0"
+                                 o11="0"   o12="1"   o1i="1"
+                                           o22="1 2" o2i="1 2">minimum</distinct>
+          <distinct type="valid" o01="1" o02="1"   o0i="1"
+                                 o11="1" o12="1 2" o1i="1 2"
+                                         o22="1 2" o2i="1 2 3">min +1 unless ≤, in which case max</distinct> 
+          <distinct type="valid" o01="1" o02="1 2" o0i="1 2 3 4 5 6 7 8 9 0"
+                                 o11="1" o12="1 2" o1i="1 2 3 4 5 6 7 8 9 0"
+                                         o22="1 2" o2i="1 2 3 4 5 6 7 8 9 0">max</distinct>
+        </p>
+      </div>
+
+      <div>
+        <head>The blort element, just to play with</head>
+        <!-- following shd be errors and are correctly detected by emacs -->
+        <p>
+          <blort truth="no" numeric="fig" prob="low" sex="yes" temporal="1994-31-12" count="-1"/>
+          <!-- following shd be errors but are not detected by emacs -->
+          <blort xml:lang="wibble" prob="12345"/>
+          <!-- following shd not be errors -->
+          <blort truth="false" xtruth="inapplicable" sex="2" temporal="1994-12-31" count="42"/>
+          <blort cert="high" dur="P3M" enumerated=" dog  breath" temporal="--12-25"/>
+          <blort key="123// wibble = 1^+ !!! $ ‰ false" language="sa" temporal="1994-12-31T12:00:00"/>
+          <blort pointers="#foo #wibble" names="mutt jeff" pattern="[a-z]\w*w\/s" numeric="42"/>
+          <blort numeric="-1.3" name="_12-45.dot"/>
+          <blort temporal="1994-12-31"/>
+          <blort pointer="http://www.tei-c.org" name="123"/>
+          <blort prob="0.456"/>
+          <blort/>
+        </p>
+      </div>
+      <div>
+        <head>
+          <lg>
+            <l>Bent double, like old beggars under sacks, </l>
+          </lg>
+        </head>
+      </div>
+      <div>
+        <head>
+          <l>Bent double, like old beggars under sacks, </l>
+          <l>Knock-kneed, coughing like hags, we cursed through sludge, </l>
+        </head>
+        <lg>
+          <l>Bent double, like old beggars under sacks, </l>
+          <l>Knock-kneed, coughing like hags, we cursed through sludge, </l>
+          <l>Till on the haunting flares we turned our backs </l>
+          <l>And towards our distant rest began to trudge. </l>
+          <l>Bent double, like old beggars under sacks, </l>
+          <l>Knock-kneed, coughing like hags, we cursed through sludge, </l>
+          <l>Till on the haunting flares we turned our backs </l>
+          <l>And towards our distant rest began to trudge. </l>
+        </lg>
+      </div>
+
+      <div>
+        <head>Some transcribed text with subst errors</head>
+        <p>... are all included. <del hand="#RG">It is</del>
+          <subst><add>T</add></subst>the expressed</p>
+        <p> that he and his Sister Miſs D —
+        <lb/>who always lived with him, wd. be very
+        <subst><lb/><add>principally</add></subst> remembered in her Will.</p>
+        <p><subst>ἐπιτρέψῃ [ἐπετρέψῃ]</subst> τῷ ὑποδέκτῃ μὴ ὀχλῆσαι</p>
+        <p>τ<subst><add place="above">ῶν</add></subst>α συνκυρόντων<subst><del>α</del></subst>
+        ἐργαστηρί<hi rend="above">ων</hi><subst><del>α</del></subst></p>
+        <p>While <del xml:id="r112">pondering</del> thus <add xml:id="r113">she mus'd</add>,
+        her pinions fann'd<substJoin target="#r112 #r113"/></p>
+      </div>
+
+      <div>
+        <head>Rules about span</head>
+        <p xml:id="spanTest"/>
+        <p xml:id="spanTest2"/>
+        <p> ... <span from="#spanTest">freddy</span></p>
+        <p> ... <span target="#spanTest">freddy</span></p>
+        <p> ... <span from="#spanTest2" target="#spanTest">freddy</span></p>
+        <p> ... <span to="#spanTest2" target="#spanTest">freddy</span></p>
+      </div>
+
+      <div>
+        <head>Checking locally-changed attributes</head>
+        <p><abbr subtype="test">freddy</abbr></p>
+        <p><alt target="#spanTest" mode="excl"/></p>
+        <p><alt target="#spanTest #spanTest2" mode="excl"/></p>
+      </div>
+
+      <div>
+        <head>Media</head>
+        <p><media mimeType="video/mp4"/></p>
+        <p><media url="foo.png"/></p>
+      </div>
+
+      <div xml:id="subtypeTyped">
+        <head>@subtype requires @type</head>
+        <p>Added 2013-01-11 17:31 by Syd</p>
+        <div type="major" subtype="minor">test both</div>
+        <div type="major">test @type only</div>
+        <div subtype="minor">test @subtype only (should FAIL)</div>
+        <div>test neither</div>
+      </div>
+
+      <div xml:id="msDesc_unitary_parts">
+        <head>test msDesc elements that should not be repeated</head>
+        <p>Some manuscript description elements are supposed to occur
+        a max of only once, even though RelaxNG allows infinite.</p>
+        <p>Added 2023-10-11 19:21 by Syd.</p>
+        <msDesc>
+          <msIdentifier>
+            <repository>MEL</repository> <!-- Middle Earth Library -->
+            <collection>BB</collection>  <!-- Bilbo Baggins -->
+            <idno>mel:bb:ve:08</idno>    <!-- I just made the "08" up -->
+            <msName>riddle of Strider</msName>
+          </msIdentifier>
+          <msContents n="1"><ab>occurs only once, thus valid</ab></msContents>
+          <physDesc n="1"><ab>occurs twice, thus invalid</ab></physDesc>
+          <physDesc n="2"><ab>occurs twice, thus invalid</ab></physDesc>
+          <history n="1"><ab>three occurrences, thus invalid</ab></history>
+          <history n="2"><ab>three occurrences, thus invalid</ab></history>
+          <history n="3"><ab>three occurrences, thus invalid</ab></history>
+          <additional n="1"><surrogates>four occurrences, thus invalid</surrogates></additional>
+          <additional n="2"><surrogates>four occurrences, thus invalid</surrogates></additional>
+          <additional n="3"><surrogates>four occurrences, thus invalid</surrogates></additional>
+          <additional n="4"><surrogates>four occurrences, thus invalid</surrogates></additional>
+        </msDesc>
+        <p>The above <gi>msDesc</gi> should generate 3 errors, one
+        each for <gi>physDesc</gi>, <gi>history</gi>, and
+        <gi>additional</gi>.</p>
+        <lg>
+          <lg>
+            <l>All that is gold does not glitter,</l>
+            <l>Not all those who wander are lost;</l>
+            <l>The old that is strong does not wither,</l>
+            <l>Deep roots are not reached by the frost.</l>
+          </lg>
+          <lg>
+            <l>From the ashes a fire shall be woken,</l>
+            <l>A light from the shadows shall spring;</l>
+            <l>Renewed shall be blade that was broken,</l>
+            <l>The crownless again shall be king.</l>
+          </lg>
+        </lg>
+      </div>
+      <div>
+        <head>Shift should have a new attribute</head>
+        <u who="who"><shift new="something"/>some thing<shift/>some more</u>
+      </div>
+
+      <div>
+        <head>msPart/altIdentifier deprecated</head>
+        <p><label>Syd 2016-09-10:</label> Should get an error because
+        <gi>altIdentifier</gi> is no longer permitted as a child of
+        <gi>msPart</gi>.</p>
+        <p><label>Syd 2014-09-09:</label> Should get a deprecation
+        warning for <gi>altIdentifier</gi> as a child of
+        <gi>msPart</gi>. Someday (around 2016-09-09) this should
+        become outright invalid, and the Schematron rule should be
+        removed.</p>
+        <msDesc>
+          <msIdentifier>
+            <msName>Test msPart/altIdentifier rule</msName>
+          </msIdentifier>
+          <msPart>
+            <altIdentifier>
+              <idno>0BAD</idno>
+            </altIdentifier>
+          </msPart>
+          <msPart>
+            <msIdentifier>
+              <msName>this one should be valid</msName>
+            </msIdentifier>
+          </msPart>
+        </msDesc>
+      </div>
+
+      <div>
+        <head>biblStruct/idno deprecated</head>
+        <p><label>Syd 2016-09-10:</label> Should get an error because
+        <gi>idno</gi> is no longer permitted as a child of
+        <gi>biblStruct</gi>.</p>
+        <p><label>Syd 2014-09-19:</label> Should get a deprecation
+        warning for <gi>idno</gi> as a child of <gi>biblStruct</gi>.
+        Someday (around 2016-09-09) this should become outright
+        invalid, and the Schematron rule should be removed.</p>
+        <biblStruct xml:id="previous_COHQHF-eg-5">
+          <monogr>
+            <author>Marriott, Henry J. L.</author>
+            <title>Practical Electrocardiography</title>
+            <edition>eighth edition</edition>
+            <imprint>
+              <pubPlace>Baltimore</pubPlace>
+              <publisher>Williams &amp; Wilkins</publisher>
+              <date when="1988"/>
+            </imprint>
+          </monogr>
+          <idno type="isbn">0-683-05576-3</idno>
+          <citedRange unit="pp">147</citedRange>
+        </biblStruct>
+      </div>
+
+      <div>
+        <head>gloss list should have label-item pairs</head>
+        <p>Only the 3rd list (with the word <q>error</q>) should raise
+        an error from <ident>gloss-list-must-have-labels</ident>.</p>
+        <list>
+          <item>untyped list with only <gi>item</gi>s</item>
+        </list>
+        <list>
+          <label>ULLIP</label> <item>untyped list with
+          <gi>label</gi>-<gi>item</gi> pairs</item>
+        </list>
+        <list type="gloss">
+          <item>gloss list with only <gi>item</gi>s; an error</item>
+        </list>
+        <list type="gloss">
+          <label>GLLIP</label> <item>gloss list with
+          <gi>label</gi>-<gi>item</gi> pairs</item>
+        </list>
+      </div>
+
+      <div>
+        <head>Abstract model constraint testing</head>
+        <p>This section created 2021-08-19 by Elisa Beshero-Bondar</p>
+        <p>Here is <floatingText><body><div><p>a little floating text</p></div></body></floatingText>.</p>
+        <ab>Here is <floatingText><body><div><p>another little floating text</p></div></body></floatingText>.</ab>
+        <lg>
+          <epigraph>
+            <quote>
+              <p>This paragraph should be valid.
+                The one around “find”, below, should be invalid.</p>
+            </quote>
+          </epigraph>
+          <l>I think that I shall never see <note><ab>Sight of TEI elements is significant in this little poem.</ab></note></l>
+          <l>A <floatingText><body><ab>floating text</ab></body></floatingText> inside this <figure><ab>tree</ab></figure>.</l>
+          <l>Nor can it be <floatingText><body><p>that I shall know</p></body></floatingText></l>
+          <l><figure><p>A paragraph</p></figure> <note><p>herein below</p></note>.</l>
+          <l>More likely maybe I could <quote><p>find</p></quote></l>
+          <l><floatingText><body><div><p>A div</p></div></body></floatingText> stuck in this poem's lines.</l>
+        </lg>
+        <p>And here is the same poem again, inside a giant floatingText and coded a little differently.</p>
+	<p>The “find”, below, <emph>should</emph> be flagged as an
+	abstract model violation, IMHO, but is not because the
+	Schematron is fooled by the fact that it is within a
+	<gi>floatingText</gi>. Sigh. —Syd, 2024-05-18</p>
+        <floatingText>
+          <body>
+            <lg>
+              <l>I think that I shall never see <note><p>Let's try some <floatingText><body><ab>super deeply nested floating text here why don't we? 
+              <note><p>Sight of TEI elements is significant in this little poem.</p></note></ab></body></floatingText></p></note></l>
+              <l>A <floatingText><body><ab>floating text</ab></body></floatingText> inside this <figure><ab>tree</ab></figure>.</l>
+              <l>Nor can it be that I shall know</l>
+              <l><figure><p>A paragraph</p></figure> <note><p>herein below</p></note>.</l>
+              <l>More likely maybe I could <quote><p>find</p></quote></l>
+              <l><floatingText><body><div><p>A div</p></div></body></floatingText> stuck in this poem's lines.</l>
+            </lg>
+          </body>
+        </floatingText> 
+      </div>
+      
+      <div n="should_be_invalid">
+        <sp>
+          <speaker/><speaker/>
+        </sp>
+        <sp>
+          <stage/><stage/>
+        </sp>
+        <sp>
+          <speaker/><speaker/>
+          <p/><p/>
+        </sp>
+        <sp>
+          <stage/><stage/>
+          <speaker/><speaker/>
+          <p/><p/>
+        </sp>
+      </div>
+      
+    </body>
+    <back>
+      <schemaSpec ident="detest_ODD_error_check">
+        <desc>This <gi>schemaSpec</gi> exists for the sole purpose of
+        testing errors in the ODD language that cannot be tested in
+        <name type="file">detest.odd</name> because they would break
+        the build there</desc>
+        <elementSpec ident="silly_and_not_used" mode="add">
+          <desc>See <code>//elementSpec[@ident eq 'abbr']/listRef</code> in <name type="file">detest.odd</name></desc>
+          <listRef>
+            <ref type="invalid" n="1">no target (2B caught by Schematron)</ref>
+            <ref type="valid" n="2" target="https://www.example.edu/tst">good target absolute URI</ref>
+            <ref type="valid" n="3" target="#one">good target shorthand pointer</ref>
+            <ref type="invalid" n="4" target="#one #two">bad target, two pointers (2B caught by Schematron)</ref>
+            <ref type="invalid" n="5" target="">bad target, no pointer (2B caught by RNG)</ref>
+            <listRef type="invalid">
+              <ptr type="valid" target="#ptr_OK_but_nested_listRef_NOT_valid"/>
+            </listRef>
+          </listRef>
+        </elementSpec>
+      </schemaSpec>
+    </back>
+  </text>
+</TEI>

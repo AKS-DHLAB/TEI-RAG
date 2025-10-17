@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<dataSpec xmlns="http://www.tei-c.org/ns/1.0" module="tei" ident="teidata.numeric">
+  <desc versionDate="2007-10-18" xml:lang="en">defines the range of attribute values used for numeric values.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">수치에 사용되는 속성 값의 범위를 정의한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">定義用於數值的屬性值範圍</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">数値をとる属性値の範囲を定義する。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">définit la gamme des valeurs d'attributs utilisées pour
+    des valeurs numériques.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">define la gama de valores de atributos para valores
+    numéricos.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">definisce la gamma di valori di attributi usati per
+    valori numerici</desc>
+  <content>
+      <alternate>
+         <dataRef name="double"/>
+         <dataRef name="token" restriction="(\-?[\d]+/\-?[\d]+)"/>
+         <dataRef name="decimal"/>
+      </alternate>
+   </content>
+  <remarks versionDate="2009-06-01" xml:lang="en">
+      <p>Any numeric value, represented as a decimal number, in floating point format, or as a ratio.</p>
+      <p>To represent a floating point number, expressed in scientific notation, <soCalled>E
+      notation</soCalled>, a variant of <soCalled>exponential notation</soCalled>, may be used. In
+      this format, the value is expressed as two numbers separated by the letter E. The first
+      number, the significand (sometimes called the mantissa) is given in decimal format, while the
+      second is an integer. The value is obtained by multiplying the mantissa by 10 the number of
+      times indicated by the integer. Thus the value represented in decimal notation as 1000.0 might
+      be represented in scientific notation as 10E3.</p>
+      <p>A value expressed as a ratio is represented by two integer values separated by a solidus (/)
+      character. Thus, the value represented in decimal notation as 0.5 might be represented as a
+      ratio by the string 1/2.</p>
+  </remarks>
+  <remarks versionDate="2024-08-08" xml:lang="ja">
+    <p>浮動小数点形式の10進小数、あるいは比の形式で表現されるなんらかの数値。浮動小数点数を表現するには、<soCalled>指数表記</soCalled>の一種である科学的表記、通称<soCalled>E記法</soCalled>が使用できる。この形式では、値はEの文字で区切られた二つの数字で表現する。一つ目の数字である仮数は小数で、二つ目の数字は整数で表される。値は、仮数を〔二つ目の〕整数の示す回数だけ10倍することで得られる。したがって、10進小数で1000.0と表記されている値は、科学的表記では10E3となる。</p><p>比の値は、二つの整数を「/」で区切って表す。したがって、10進小数で0.5と表される値は、比としては1/2という文字列で表現できる。 </p>
+  </remarks>
+  <remarks versionDate="2009-10-06" xml:lang="fr">
+      <p> Toute valeur numérique, représentée en nombre décimal, notée en virgule flottante ou
+      en fraction.</p>
+      <p>Pour représenter un nombre en virgule flottante, exprimé en notation scientifique,
+        <soCalled>E notation</soCalled>, une variante de la <soCalled>notation
+      exponentielle</soCalled> peut être utilisée. Dans ce format, la valeur est exprimée par deux
+      nombres séparés par la lettre E. Le premier facteur, le significande (parfois appelé mantisse)
+      est donné sous forme décimale, tandis que le second est un entier. La valeur est obtenue en
+      multipliant la mantisse par 10 fois le nombre indiqué par l'entier. Ainsi la valeur
+      représentée en notation décimale 1000.0 pourrait être représentée en notation
+      scientifique 10E3.</p>
+      <p>Une valeur exprimée en fraction est représentée par deux nombres entiers séparés par une
+      barre oblique (/). Ainsi, la valeur représentée en notation décimale 0.5 pourrait être
+      représentée en fraction par la chaîne de caractères 1/2.</p>
+  </remarks>
+</dataSpec>

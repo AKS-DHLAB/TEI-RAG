@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svrl:schematron-output xmlns:error="https://doi.org/10.5281/zenodo.1495494#error"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:rna="http://relaxng.org/ns/compatibility/annotations/1.0"
+                        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+                        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+                        xmlns:sch1x="http://www.ascc.net/xml/schematron"
+                        xmlns:schxslt="https://doi.org/10.5281/zenodo.1495494"
+                        xmlns:schxslt-api="https://doi.org/10.5281/zenodo.1495494#api"
+                        xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
+                        xmlns:tei="http://www.tei-c.org/ns/1.0"
+                        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                        title="ISO Schematron rules">
+   <svrl:ns-prefix-in-attribute-values prefix="tei" uri="http://www.tei-c.org/ns/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="xs" uri="http://www.w3.org/2001/XMLSchema"/>
+   <svrl:ns-prefix-in-attribute-values prefix="rng" uri="http://relaxng.org/ns/structure/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="rna" uri="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+   <svrl:ns-prefix-in-attribute-values prefix="sch" uri="http://purl.oclc.org/dsdl/schematron"/>
+   <svrl:ns-prefix-in-attribute-values prefix="sch1x" uri="http://www.ascc.net/xml/schematron"/>
+   <svrl:metadata xmlns:dct="http://purl.org/dc/terms/"
+                  xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+      <dct:creator>
+         <dct:Agent>
+            <skos:prefLabel>SAXON/HE 10.3</skos:prefLabel>
+         </dct:Agent>
+      </dct:creator>
+      <dct:created>2025-09-04T16:13:44.962612039Z</dct:created>
+      <dct:source>
+         <rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/">
+            <dct:creator>
+               <dct:Agent>
+                  <skos:prefLabel>SchXslt/1.10.1 SAXON/HE 10.3</skos:prefLabel>
+                  <schxslt.compile.typed-variables xmlns="https://doi.org/10.5281/zenodo.1495494#">true</schxslt.compile.typed-variables>
+               </dct:Agent>
+            </dct:creator>
+            <dct:created>2025-09-04T16:13:44.932889333Z</dct:created>
+         </rdf:Description>
+      </dct:source>
+   </svrl:metadata>
+   <svrl:active-pattern name="schematron-constraint-CMC_generatedBy_within_post-1"
+                        id="schematron-constraint-CMC_generatedBy_within_post-1"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-when-2"
+                        id="schematron-constraint-att-datable-w3c-when-2"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-from-3"
+                        id="schematron-constraint-att-datable-w3c-from-3"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-att-datable-w3c-to-4"
+                        id="schematron-constraint-att-datable-w3c-to-4"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-only_1_ODD_source-5"
+                        id="schematron-constraint-only_1_ODD_source-5"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-subtypeTyped-6"
+                        id="schematron-constraint-subtypeTyped-6"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-p-in-ab-or-p-7"
+                        id="schematron-constraint-abstractModel-structure-p-in-ab-or-p-7"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:fired-rule context="tei:p"/>
+   <svrl:active-pattern name="schematron-constraint-abstractModel-structure-p-in-l-8"
+                        id="schematron-constraint-abstractModel-structure-p-in-l-8"
+                        documents="file:/var/jenkins_home/workspace/TEIP5/P5/Exemplars/tei_minimal.tei"/>
+</svrl:schematron-output>

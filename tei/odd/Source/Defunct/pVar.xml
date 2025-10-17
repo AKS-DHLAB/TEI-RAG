@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+Copyright TEI Consortium. 
+Dual-licensed under CC-by and BSD2 licences 
+See the file COPYING.txt for details
+$Date$
+$Id$
+--><?xml-model href="http://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec validUntil="2017-08-24" xmlns="http://www.tei-c.org/ns/1.0" module="dictionaries" ident="pVar">
+  <gloss versionDate="2005-01-14" xml:lang="en">pronunciation-variant reference</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">발음-변이 참조</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">發音變化參照</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">référence à une variante de prononciation</gloss>
+  <gloss versionDate="2007-05-04" xml:lang="es">referencia a una variante en la pronunciación</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">riferimento alla variante della pronuncia</gloss>
+  <desc versionDate="2005-01-14" xml:lang="en">in a dictionary example, indicates a reference to variant pronunciation(s) of the headword.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">사전의 예에서 표제어의 변이 발음 참조를 표시한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">在字典範例中，參照出標題字的發音變化形式。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">辞書の用例中で，見出し語の，異なる発音への参照を示す．</desc>
+  <desc versionDate="2009-04-08" xml:lang="fr">dans un exemple de dictionnaire, indique une référence à
+    une ou des variante(s) de prononciation du mot-vedette.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">en un diccionario, indica una referencia a una variante
+    de pronunciación del lema.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">in un esempio in un dizionario, indica un riferimento a
+    una o più varianti della pronuncia del lemma.</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="model.ptrLike.form"/>
+    <memberOf key="att.pointing"/>
+    <memberOf key="att.lexicographic"/>
+    <memberOf key="att.notated"/>
+  </classes>
+  <content>   
+      <alternate minOccurs="0" maxOccurs="unbounded">
+        <textNode/>
+        <classRef key="model.gLike"/>
+        <elementRef key="pRef"/>
+      </alternate>
+  </content>
+  
+  <exemplum xml:lang="de">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <entry>
+        <form>
+          <orth>umfahren</orth>
+          <pron xml:id="umfahren1a">umf'ahren</pron>
+          <pron xml:id="umfahren2a">'umfahren</pron>
+        </form>
+        <cit>
+          <quote>Weil Paul die Pfütze <pRef target="#umfahren1a">um'fuhr</pRef>, blieb er trocken.</quote>
+        </cit>
+        <cit>
+          <quote>Weil Paul das Schild <pRef target="#umfahren2a">'umfuhr</pRef>, ging es kaputt.</quote>
+        </cit>
+      </entry>
+    </egXML>
+  </exemplum>
+  <remarks versionDate="2016-03-09" xml:lang="en">
+    <p>This element is deprecated: the <gi>pRef</gi> element should be used in its place.</p>
+  </remarks>
+  <remarks xml:lang="fr" versionDate="2007-06-12">
+    <p rend="dataDesc">Caractères ou <gi>pRef</gi>.</p>
+  </remarks>
+  <remarks xml:lang="ja" versionDate="2008-04-05">
+    <p rend="dataDesc"> 文字列または要素<gi>pRef</gi>． </p>
+  </remarks>
+  <listRef>
+    <ptr target="#DI"/>
+  </listRef>
+</elementSpec>

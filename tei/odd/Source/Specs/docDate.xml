@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- © TEI Consortium. Dual-licensed under CC-by and BSD2 licenses; see the file COPYING.txt for details. -->
+<?xml-model href="https://jenkins.tei-c.org/job/TEIP5-dev/lastSuccessfulBuild/artifact/P5/release/xml/tei/odd/p5.nvdl" type="application/xml" schematypens="http://purl.oclc.org/dsdl/nvdl/ns/structure/1.0"?>
+<elementSpec xmlns="http://www.tei-c.org/ns/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" module="textstructure" xml:id="gi-docDate" ident="docDate">
+  <gloss versionDate="2005-01-14" xml:lang="en">document date</gloss>
+  <gloss versionDate="2007-12-20" xml:lang="ko">문서 날짜</gloss>
+  <gloss versionDate="2007-05-02" xml:lang="zh-TW">文件日期</gloss>
+  <gloss versionDate="2007-06-12" xml:lang="fr">date du document</gloss>
+  <gloss versionDate="2006-10-18" xml:lang="de">Datierung des Dokuments</gloss>
+  <gloss versionDate="2007-05-04" xml:lang="es">fecha del documento</gloss>
+  <gloss versionDate="2007-01-21" xml:lang="it">data del documento</gloss>
+  <desc versionDate="2013-11-12" xml:lang="en">contains the date of a document, as given on a title page or in a dateline.</desc>
+  <desc versionDate="2007-12-20" xml:lang="ko">대개 제목 페이지에 제시되는 문서의 날짜를 포함한다.</desc>
+  <desc versionDate="2007-05-02" xml:lang="zh-TW">包含文件日期， 同於 (通常) 在題名頁上顯示的日期。</desc>
+  <desc versionDate="2008-04-05" xml:lang="ja">文書の日付を示す。一般にはタイトルページに書かれている。</desc>
+  <desc versionDate="2007-06-12" xml:lang="fr">contient la date d’un document telle qu’elle est (généralement ) donnée sur une page de titre.</desc>
+  <desc versionDate="2017-06-19" xml:lang="de">enthält die Datierung des Dokuments, wie auf der Titelseite oder in einer Datumszeile angegeben.</desc>
+  <desc versionDate="2007-05-04" xml:lang="es">contiene la fecha del documento, tal y como, normalmente, aparece en el frontispicio.</desc>
+  <desc versionDate="2007-01-21" xml:lang="it">contiene la data del documento così come riportata di norma nel frontespizio</desc>
+  <classes>
+    <memberOf key="att.global"/>
+    <memberOf key="att.calendarSystem"/>
+    <memberOf key="att.cmc"/>
+    <memberOf key="att.datable"/>
+    <memberOf key="model.divWrapper"/>
+    <memberOf key="model.pLike.front"/>
+    <memberOf key="model.titlepagePart"/>
+  </classes>
+  <content>
+    <macroRef key="macro.phraseSeq"/>
+  </content>
+  <exemplum xml:lang="en">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-docDate-egXML-nd">
+      <docImprint>Oxford, Clarendon Press, <docDate>1987</docDate>
+         </docImprint>
+    </egXML>
+  </exemplum>
+  <exemplum versionDate="2008-04-06" xml:lang="fr">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-docDate-egXML-ho">
+      <docImprint>Lettres Modernes Minard, <pubPlace>PARIS-CAEN</pubPlace>
+            <docDate>2003</docDate>
+        </docImprint>
+    </egXML>
+  </exemplum>
+  <exemplum xml:lang="zh-TW">
+    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:id="gi-docDate-egXML-af">
+      <docImprint>上海：中華書局，<docDate>2001</docDate>年。
+      </docImprint>
+    </egXML>
+  </exemplum>
+  <remarks versionDate="2013-11-12" xml:lang="en">
+    <p>Cf. the general <gi>date</gi> element in the core tag set.
+      This specialized element is provided for convenience in marking
+      and processing the date of the documents, since it is likely to
+      require specialized handling for many applications. It should be
+      used only for the date of the entire document, not for any subset
+      or part of it.</p>
+  </remarks>
+  <remarks versionDate="2007-06-12" xml:lang="fr">
+    <p>Voir l'élément générique <gi>date</gi> dans le module <term>core</term>. L'élément
+      spécifique <gi>docDate</gi> est fourni à toutes fins utiles pour encoder et traiter
+      la date des documents, puisque celle-ci requiert une gestion particulière pour de
+      nombreux besoins.</p>
+  </remarks>
+  <remarks versionDate="2008-04-05" xml:lang="ja">
+    <p>
+    要素<gi>date</gi>は、コアタグ集合で定義されている。
+    当該要素は、当該文書の日付を記述・処理するためのものである。多くの
+    ソフトウェアは独自の扱いをするだろう。
+    </p>
+  </remarks>
+  <remarks versionDate="2017-06-19" xml:lang="de">
+    <p>Vgl. das allgemeine <gi>date</gi>-Element im core-Modul. Dieses
+      spezialisierte Element erleichtert die Kodierung und Verarbeitung der Datierung eines Dokuments,
+      die vermutlich in vielen Anwendungsszenarien gesondert behandelt wird. Es sollte nur für das
+      Datum des gesamten Dokuments verwendet werden, nicht für Datierungen von Abschnitten oder
+      Teilen.</p>
+  </remarks>
+  <listRef>
+    <ptr target="#DSTITL"/>
+  </listRef>
+</elementSpec>

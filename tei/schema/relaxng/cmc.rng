@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+         xmlns:tei="http://www.tei-c.org/ns/1.0"
+         xmlns:teix="http://www.tei-c.org/ns/Examples"
+         datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"><!--Schema generated 2025-09-04T15:48:06Z
+Edition: P5 Version 4.10.2. Last updated on
+        4th September 2025, revision bcfa98f42
+This material is dual-licensed.
+[http://creativecommons.org/licenses/by/3.0/] Distributed under a Creative Commons Attribution 3.0 Unported License.  [http://www.opensource.org/licenses/BSD-2-Clause] Copyright 2025 TEI Consortium. All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution. This software is provided by the copyright holders and contributors "as is" and any express or implied warranties, including, but not limited to, the implied warranties of merchantability and fitness for a particular purpose are disclaimed. In no event shall the copyright holder or contributors be liable for any direct, indirect, incidental, special, exemplary, or consequential damages (including, but not limited to, procurement of substitute goods or services; loss of use, data, or profits; or business interruption) however caused and on any theory of liability, whether in contract, strict liability, or tort (including negligence or otherwise) arising in any way out of the use of this software, even if advised of the possibility of such damage. TEI material can be licensed differently depending on the use you intend to make of it. Hence it is made available under both the CC+BY and BSD-2 licences. The CC+BY licence is generally appropriate for usages which treat TEI content as data or documentation. The BSD-2 licence is generally appropriate for usage of TEI content in a software environment. For further information or clarification, please contact the  TEI
+          Consortium . Computer-mediated communication--><!--Definitions from module cmc--><!--Set global predeclared macros--><!--Set predeclared macros--><!--0. predeclared macros--><!--1. classes--><!--2. elements-->
+   <define name="post">
+      <element name="post">
+         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">a written (or spoken) contribution to a CMC interaction which has been composed (or recorded) by its author in its entirety before being transmitted over a network (e.g., the internet) and made available on the monitor or screen of the other parties en bloc. []</a:documentation>
+         <ref name="post.content"/>
+         <ref name="post.localattributes"/>
+      </element>
+   </define>
+   <define name="post.content">
+      <zeroOrMore>
+         <choice>
+            <text/>
+            <ref name="model.headLike"/>
+            <ref name="opener"/>
+            <ref name="model.pLike"/>
+            <ref name="model.gLike"/>
+            <ref name="model.phrase"/>
+            <ref name="model.inter"/>
+            <ref name="model.global"/>
+            <ref name="lg"/>
+            <ref name="model.lLike"/>
+            <ref name="model.divBottom"/>
+         </choice>
+      </zeroOrMore>
+   </define>
+   <define name="post.localattributes">
+      <ref name="att.global.attributes"/>
+      <ref name="att.ascribed.attributes"/>
+      <ref name="att.canonical.attributes"/>
+      <ref name="att.cmc.attributes"/>
+      <ref name="att.datable.attributes"/>
+      <ref name="att.docStatus.attributes"/>
+      <ref name="att.fragmentable.attributes"/>
+      <ref name="att.indentation.attributes"/>
+      <ref name="att.timed.attributes"/>
+      <ref name="att.typed.attributes"/>
+      <optional>
+         <attribute name="modality">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">written or spoken mode.
+Suggested values include: 1] written; 2] spoken (for audio (or audio-visual) posts)</a:documentation>
+            <choice>
+               <value>written</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">for stretches of text and/or multimodal elements</a:documentation>
+               <value>spoken</value>
+               <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(for audio (or audio-visual) posts) </a:documentation>
+               <data type="token">
+                  <param name="pattern">[^\p{C}\p{Z}]+</param>
+               </data>
+            </choice>
+         </attribute>
+      </optional>
+      <optional>
+         <attribute name="replyTo">
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">indicates to which previous post the current post replies or refers.</a:documentation>
+            <list>
+               <oneOrMore>
+                  <data type="anyURI">
+                     <param name="pattern">\S+</param>
+                  </data>
+               </oneOrMore>
+            </list>
+         </attribute>
+      </optional>
+      <empty/>
+   </define>
+   <!--3. macros-->
+   <define name="macro.specialPara.cmc">
+      <zeroOrMore>
+         <choice>
+            <text/>
+            <ref name="model.gLike"/>
+            <ref name="model.phrase"/>
+            <ref name="model.inter"/>
+            <ref name="model.divPart"/>
+            <ref name="model.global"/>
+            <ref name="model.cmc"/>
+         </choice>
+      </zeroOrMore>
+   </define>
+</grammar>
