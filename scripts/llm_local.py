@@ -16,6 +16,7 @@ Notes:
 """
 
 import torch
+import os
 from typing import Optional, Any, cast
 
 try:
@@ -41,12 +42,23 @@ def choose_device() -> str:
 
     Order of preference: CUDA (if available) -> MPS (Apple silicon) -> CPU.
     """
-    # NOTE: MPS (Apple silicon) can cause "meta tensor" movement issues
-    # with some HF model loading flows. To avoid errors like:
-    # "Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty()"
-    # we avoid selecting 'mps' here and prefer CPU when CUDA is not available.
+    # Respect explicit environment flag to prefer MPS when available.
+    # Default behavior keeps previous conservative choice (avoid MPS) unless
+    # PREFER_MPS is set to '1'. This helps on Apple silicon where MPS may
+    # offer significant speedups, but can still cause issues for some HF flows.
     if torch.cuda.is_available():
         return "cuda"
+
+    prefer_mps = os.environ.get("PREFER_MPS", "0").lower() in ("1", "true", "yes")
+    try:
+        # torch.backends.mps availability check
+        mps_avail = getattr(torch.backends, "mps", None) is not None and torch.backends.mps.is_available()
+    except Exception:
+        mps_avail = False
+
+    if prefer_mps and mps_avail:
+        return "mps"
+
     return "cpu"
 
 

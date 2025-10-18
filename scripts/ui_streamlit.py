@@ -121,6 +121,11 @@ if _STREAMLIT_CHILD:
     use_faiss = st.sidebar.checkbox("Use FAISS retrieval", value=True)
     use_neo4j = st.sidebar.checkbox("Fetch Neo4j facts", value=True)
     show_debug = st.sidebar.checkbox("Show debug queries/responses", value=True)
+    enable_rerank = st.sidebar.checkbox("Enable re-rank (cross-encoder)", value=True)
+    rerank_top_k = st.sidebar.number_input("Re-rank: top K", min_value=1, max_value=10, value=3)
+    use_compression = st.sidebar.checkbox("Compress chunks using full text (1-3 sentences)", value=False)
+    compress_sentences = st.sidebar.number_input("Top sentences per chunk", min_value=1, max_value=5, value=3)
+    prefer_mps = st.sidebar.checkbox("Prefer MPS (Apple silicon) for model/embedder", value=False)
     # 기본 모델을 kanana로 설정합니다. 로컬에 모델이 없으면 처음 로드에 시간이 걸릴 수 있습니다.
     llm_model = st.sidebar.text_input("LLM model", value="kakaocorp/kanana-nano-2.1b-base")
     max_new_tokens = st.sidebar.number_input("Max new tokens", min_value=16, max_value=2048, value=2048, step=16)
@@ -192,6 +197,11 @@ if _STREAMLIT_CHILD:
                     import torch
                     sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
                     sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
+                    # Respect the UI preference for MPS when loading models in this process
+                    if prefer_mps:
+                        os.environ['PREFER_MPS'] = '1'
+                    else:
+                        os.environ.pop('PREFER_MPS', None)
                     qv = sbert.encode([question], convert_to_numpy=True)
                     idx = faiss.read_index(str(index_file))
                     D, I = idx.search(qv, 5)
@@ -227,6 +237,65 @@ if _STREAMLIT_CHILD:
             else:
                 # fallback: top-3 by appearance (simple)
                 hits = meta[:3]
+            # Optionally re-rank hits and compress
+            final_hits = hits
+            if enable_rerank and hits:
+                try:
+                    # import rerank helper from rag_integration (optional)
+                    import importlib
+
+                    ri = importlib.import_module("scripts.rag_integration")
+                    top_k = min(int(rerank_top_k), len(hits))
+                    reranked = ri.rerank_chunks(question, hits, top_k=top_k)
+                    st.subheader("Re-ranked Chunks")
+                    for h in reranked:
+                        st.markdown(f"**{h.get('id', h.get('path',''))}** - {h.get('path','')}\n\n{(h.get('excerpt') or '')[:400]}")
+                    final_hits = reranked
+                except Exception as e:
+                    st.warning(f"Re-rank failed or unavailable: {e}")
+
+            if use_compression and final_hits:
+                try:
+                    # load full texts for the hits from training JSONL
+                    def _load_full_texts_for(retrieved, training_path='data/tei_training_data.jsonl'):
+                        need = {(r.get('path'), r.get('chunk_index')) for r in retrieved}
+                        out = {}
+                        tp = Path(training_path)
+                        if not tp.exists():
+                            return out
+                        with open(tp, 'r', encoding='utf-8') as f:
+                            for line in f:
+                                try:
+                                    rec = json.loads(line)
+                                except Exception:
+                                    continue
+                                key = (rec.get('path'), rec.get('chunk_index'))
+                                if key in need:
+                                    out[key] = rec.get('text')
+                                    if len(out) == len(need):
+                                        break
+                        return out
+
+                    import importlib
+                    ri = importlib.import_module("scripts.rag_integration")
+                    fulls = _load_full_texts_for(final_hits)
+                    compressed_hits = []
+                    for r in final_hits:
+                        key = (r.get('path'), r.get('chunk_index'))
+                        full_text = fulls.get(key)
+                        if full_text:
+                            short = ri.extract_top_sentences(full_text, question, n=int(compress_sentences))
+                            rc = dict(r)
+                            rc['excerpt'] = short
+                            compressed_hits.append(rc)
+                        else:
+                            compressed_hits.append(r)
+                    st.subheader('Compressed Chunks (top sentences)')
+                    for h in compressed_hits:
+                        st.markdown(f"**{h.get('id', h.get('path',''))}** - {h.get('path','')}\n\n{(h.get('excerpt') or '')[:400]}")
+                    final_hits = compressed_hits
+                except Exception as e:
+                    st.warning(f"Compression failed: {e}")
 
             st.subheader("Retrieved Chunks")
             for h in hits:

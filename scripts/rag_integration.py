@@ -32,7 +32,13 @@ SCRIPTS_DIR = ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 
 from rag_prompt_builder import build_prompt
-from neo4j_helpers import create_driver, get_chunks_by_ids
+from neo4j_helpers import create_driver, get_chunks_by_ids, get_related_facts
+
+try:
+    # Cross-encoder for re-ranking (optional)
+    from sentence_transformers.cross_encoder import CrossEncoder
+except Exception:
+    CrossEncoder = None
 
 try:
     from sentence_transformers import SentenceTransformer
@@ -47,6 +53,68 @@ except Exception:
 def load_meta(path: str) -> List[dict]:
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def rerank_chunks(query: str, retrieved: List[dict], model_name: str = 'sentence-transformers/cross-encoder/ms-marco-MiniLM-L-6', top_k: int = 3):
+    """Re-rank retrieved chunks using a cross-encoder. Returns top_k chunks in order.
+
+    Falls back to a simple heuristic (original order) when cross-encoder not available.
+    """
+    if not retrieved:
+        return []
+
+    texts = []
+    ids = []
+    for r in retrieved:
+        txt = r.get('excerpt') or r.get('text') or ''
+        texts.append(txt)
+        ids.append(r)
+
+    # Try cross-encoder first
+    try:
+        if CrossEncoder is not None:
+            model = CrossEncoder(model_name)
+            pairs = [[query, t] for t in texts]
+            scores = model.predict(pairs)
+            scored = list(zip(scores, retrieved))
+            scored.sort(key=lambda x: x[0], reverse=True)
+            top = [s[1] for s in scored[:top_k]]
+            return top
+    except Exception:
+        pass
+
+    # Fallback: use simple lexical heuristic (keep first top_k)
+    return retrieved[:top_k]
+
+
+def extract_top_sentences(text: str, query: str, n: int = 3, embed_model: str = 'sentence-transformers/all-MiniLM-L6-v2') -> str:
+    """Extract up to n sentences from text most similar to query using SBERT embeddings.
+
+    Returns concatenated sentences as a single string (joined by space).
+    Falls back to the first n sentences if embedding model not available.
+    """
+    import re
+    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if s.strip()]
+    if not sentences:
+        return ''
+
+    try:
+        if SentenceTransformer is None:
+            raise RuntimeError('no sbert')
+        emb = SentenceTransformer(embed_model)
+        import numpy as _np
+        qv = emb.encode([query], convert_to_numpy=True)[0]
+        svecs = emb.encode(sentences, convert_to_numpy=True)
+        # cosine similarities
+        norms_q = (_np.linalg.norm(qv) or 1.0)
+        norms_s = (_np.linalg.norm(svecs, axis=1) + 1e-12)
+        sims = (_np.dot(svecs, qv) / (norms_s * norms_q)).tolist()
+        ranked_idx = sorted(range(len(sims)), key=lambda i: sims[i], reverse=True)[:n]
+        chosen = [sentences[i] for i in ranked_idx]
+        return ' '.join(chosen)
+    except Exception:
+        # fallback: first n sentences
+        return ' '.join(sentences[:n])
 
 
 def simulate_retrieval(meta: List[dict], limit: int = 5):
@@ -201,17 +269,52 @@ def main():
     else:
         retrieved = simulate_retrieval(meta, limit=args.limit)
 
-    print('\n=== Retrieved chunks ===\n')
+    print('\n=== Retrieved chunks (raw) ===\n')
     print(json.dumps(retrieved, ensure_ascii=False, indent=2)[:4000])
 
+    # Re-rank retrieved chunks for higher precision
+    try:
+        reranked = rerank_chunks(args.question, retrieved, top_k=min( max(3, args.limit), len(retrieved) ))
+        print('\n=== Retrieved chunks (reranked top) ===\n')
+        print(json.dumps(reranked, ensure_ascii=False, indent=2)[:4000])
+    except Exception as _e:
+        print('Rerank failed, using original retrieved order:', _e)
+        reranked = retrieved[:args.limit]
+
+    # Load full texts if compression is requested
     if args.use_full_text:
         fulls = load_full_texts_for(retrieved)
-        for r in retrieved:
+        # compress each of the reranked top-k chunks into 1-3 top sentences
+        compressed = []
+        for r in reranked:
             key = (r.get('path'), r.get('chunk_index'))
-            if key in fulls:
-                r['excerpt'] = fulls[key]
+            full_text = fulls.get(key)
+            if full_text:
+                short = extract_top_sentences(full_text, args.question, n=3)
+                r_copy = dict(r)
+                r_copy['excerpt'] = short
+                compressed.append(r_copy)
+            else:
+                compressed.append(r)
+        print('\n=== Retrieved chunks (compressed top) ===\n')
+        print(json.dumps(compressed, ensure_ascii=False, indent=2)[:4000])
+    else:
+        compressed = reranked
 
-    prompt = build_prompt(args.question, retrieved, neo4j_facts=[], max_context_chars=args.max_context_chars)
+    # Retrieve related facts from Neo4j for the top compressed chunks
+    try:
+        chunk_ids = []
+        for r in compressed:
+            cid = r.get('id') or f"{r.get('path')}::chunk::{r.get('chunk_index')}"
+            chunk_ids.append(cid)
+        neo4j_facts = get_related_facts(create_driver(), chunk_ids, max_depth=1)
+        print('\n=== Neo4j related facts (derived) ===\n')
+        print(json.dumps(neo4j_facts, ensure_ascii=False, indent=2)[:4000])
+    except Exception as _e:
+        print('Failed to fetch neo4j related facts:', _e)
+        neo4j_facts = []
+
+    prompt = build_prompt(args.question, compressed, neo4j_facts=neo4j_facts, max_context_chars=args.max_context_chars)
 
     if args.call_llm:
         raw_out_log = []

@@ -71,3 +71,53 @@ def get_chunks_by_ids(driver, chunk_ids: Sequence[str]) -> List[Dict[str, Any]]:
 
     with driver.session() as s:
         return s.execute_read(_tx, chunk_ids)
+
+
+def get_related_facts(driver, chunk_ids: Sequence[str], max_depth: int = 1) -> List[Dict[str, Any]]:
+    """Given a list of chunk ids, return related facts (neighbor nodes) up to max_depth.
+
+    The function walks from each Chunk node outwards up to `max_depth` relationship hops
+    and collects neighboring nodes (excluding the originating Chunk nodes). For each
+    neighbor node a concise summary is produced using available properties such as
+    `summary`, `name`, `title` or a condensed representation of its properties.
+
+    Returns a list of dicts: {"id": <node_id_or_path>, "summary": <text>}.
+    """
+    if not chunk_ids:
+        return []
+
+    # Cypher: for each chunk id, find neighbors within depth and return distinct nodes
+    cypher = (
+        "UNWIND $ids AS cid\n"
+        "MATCH (c:Chunk {id:cid})-[*1..$depth]-(n)\n"
+        "WHERE NOT n:Chunk\n"
+        "RETURN DISTINCT n LIMIT $limit"
+    )
+
+    def _tx(tx, ids, depth, limit):
+        res = tx.run(cypher, ids=ids, depth=depth, limit=limit)
+        out = []
+        for r in res:
+            node = r["n"]
+            props = dict(node.items())
+            # try to produce a short summary
+            summary = None
+            for k in ("summary", "name", "title", "label", "text"):
+                if k in props and props.get(k):
+                    summary = str(props.get(k))
+                    break
+            if not summary:
+                # fallback to first few props
+                items = []
+                for kk, vv in list(props.items())[:4]:
+                    items.append(f"{kk}={vv}")
+                summary = "; ".join(items)
+
+            # derive an identifier for the node
+            nid = props.get("id") or props.get("path") or props.get("name") or str(node.id)
+            out.append({"id": nid, "summary": summary})
+        return out
+
+    # cap results to avoid huge responses
+    with driver.session() as s:
+        return s.execute_read(_tx, chunk_ids, max_depth, max(50, len(chunk_ids) * 5))
