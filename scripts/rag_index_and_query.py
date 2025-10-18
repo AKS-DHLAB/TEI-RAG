@@ -23,7 +23,11 @@ def build_index(docs_dir: Path, embed_model_name: str, index_path: Path, meta_pa
     import numpy as np
     import faiss
 
-    model = SentenceTransformer(embed_model_name)
+    # Avoid loading sentence-transformers onto MPS to prevent meta tensor copy errors;
+    # prefer CUDA if available, else CPU.
+    import torch
+    sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    model = SentenceTransformer(embed_model_name, device=sbert_device)
     texts = []
     metas = []
     for p in sorted(docs_dir.glob('**/*.txt')):

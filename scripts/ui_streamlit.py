@@ -102,7 +102,9 @@ if _STREAMLIT_CHILD:
             # lazy import to avoid c-extension init at module import time
             from sentence_transformers import SentenceTransformer
 
-            model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+            import torch
+            sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+            model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
             st.session_state[key] = model
             return model
         except Exception as e:  # pragma: no cover - runtime import guard
@@ -187,7 +189,9 @@ if _STREAMLIT_CHILD:
                     from sentence_transformers import SentenceTransformer
                     import numpy as np
 
-                    sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+                    import torch
+                    sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+                    sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
                     qv = sbert.encode([question], convert_to_numpy=True)
                     idx = faiss.read_index(str(index_file))
                     D, I = idx.search(qv, 5)

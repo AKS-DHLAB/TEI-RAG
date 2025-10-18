@@ -59,8 +59,18 @@ def faiss_retrieval(meta: List[dict], index_path: str, query: str, model_name: s
         raise RuntimeError('FAISS or sentence-transformers not available in environment')
 
     idx = faiss.read_index(index_path)
-    model = SentenceTransformer(model_name)
-    qemb = model.encode([query], show_progress_bar=False)
+    # Choose a safe device for SentenceTransformer. Avoid MPS due to current PyTorch
+    # 'meta tensor' movement issues on some macOS setups; prefer CUDA when available
+    # otherwise use CPU.
+    import torch
+    if torch.cuda.is_available():
+        sbert_device = 'cuda'
+    else:
+        # avoid using 'mps' here as moving meta tensors to MPS may trigger
+        # "Cannot copy out of meta tensor" errors; use cpu as a safe fallback
+        sbert_device = 'cpu'
+    model = SentenceTransformer(model_name, device=sbert_device)
+    qemb = model.encode([query], show_progress_bar=False, convert_to_numpy=True)
     qemb = np.array(qemb).astype('float32')
     D, I = idx.search(qemb, topk)
     ids = []

@@ -41,10 +41,12 @@ def choose_device() -> str:
 
     Order of preference: CUDA (if available) -> MPS (Apple silicon) -> CPU.
     """
+    # NOTE: MPS (Apple silicon) can cause "meta tensor" movement issues
+    # with some HF model loading flows. To avoid errors like:
+    # "Cannot copy out of meta tensor; no data! Please use torch.nn.Module.to_empty()"
+    # we avoid selecting 'mps' here and prefer CPU when CUDA is not available.
     if torch.cuda.is_available():
         return "cuda"
-    if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
-        return "mps"
     return "cpu"
 
 

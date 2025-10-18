@@ -74,7 +74,9 @@ def main():
     from typing import Any, cast
 
     # Cast to Any for static analysis friendliness (some type stubs vary by install)
-    model = cast(Any, SentenceTransformer(args.embed_model))
+    import torch
+    sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
+    model = cast(Any, SentenceTransformer(args.embed_model, device=sbert_device))
     embeddings = model.encode(docs, show_progress_bar=True, convert_to_numpy=True)
     # Ensure embeddings is a 2D numpy array: (n_vectors, dim)
     if embeddings.ndim != 2:
