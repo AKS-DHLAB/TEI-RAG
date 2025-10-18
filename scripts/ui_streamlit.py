@@ -273,7 +273,18 @@ if _STREAMLIT_CHILD:
                         st.warning("NEO4J_PASSWORD not set in environment; cannot fetch Neo4j facts")
                     else:
                         # show the cypher we'll run and the ids
-                        ids = [h.get("id") for h in hits if h.get("id")]
+                        # Ensure we have chunk ids. If the meta entries do not include an
+                        # explicit 'id' field, synthesize one using the same convention
+                        # used by `tei_to_neo4j.py`: "{path}::chunk::{chunk_index}".
+                        ids = []
+                        for h in hits:
+                            if h.get("id"):
+                                ids.append(h.get("id"))
+                            else:
+                                pth = h.get("path")
+                                ci = h.get("chunk_index")
+                                if pth is not None and ci is not None:
+                                    ids.append(f"{pth}::chunk::{int(ci)}")
                         cypher = "MATCH (c:Chunk) WHERE c.id IN $ids RETURN c"
                         if show_debug:
                             st.subheader('Neo4j debug')

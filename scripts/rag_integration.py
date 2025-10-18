@@ -101,7 +101,7 @@ def main():
     p.add_argument('--faiss-index', default='data/faiss_tei.index', help='Path to FAISS index file')
     p.add_argument('--embed-model', default='all-MiniLM-L6-v2', help='SentenceTransformer model to use for embeddings')
     p.add_argument('--call-llm', action='store_true', help='Call local HF model with the built prompt')
-    p.add_argument('--llm-model', default='gpt2', help='Hugging Face model name for local generation')
+    p.add_argument('--llm-model', default='kakaocorp/kanana-nano-2.1b-base', help='Hugging Face model name for local generation')
     p.add_argument('--max-new-tokens', type=int, default=128)
     p.add_argument('--temperature', type=float, default=0.7)
     p.add_argument('--trust-remote-code', action='store_true', help='Pass trust_remote_code=True when loading HF model')

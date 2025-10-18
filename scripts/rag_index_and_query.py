@@ -166,7 +166,7 @@ def main():
     parser.add_argument('--embed-model', type=str, default='sentence-transformers/all-MiniLM-L6-v2')
     parser.add_argument('--index-path', type=str, default='data/faiss.index')
     parser.add_argument('--meta-path', type=str, default='data/meta.json')
-    parser.add_argument('--hf-model', type=str, default='gpt2')
+    parser.add_argument('--hf-model', type=str, default='kakaocorp/kanana-nano-2.1b-base')
     parser.add_argument('--topk', type=int, default=3)
     parser.add_argument('--device', type=str, default=None)
     parser.add_argument('--use-8bit', action='store_true', dest='use_8bit', help='Load model in 8-bit using bitsandbytes')

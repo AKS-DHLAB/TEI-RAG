@@ -15,6 +15,8 @@ CHUNK_OVERLAP = 100
 EMBED_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
 OUT_INDEX = Path('data/faiss_tei.index')
 OUT_META = Path('data/faiss_tei_meta.json')
+TRAINING_JSONL = Path('data/tei_training_data.jsonl')
+# default root kept for backward compatibility, but allow scanning entire tei tree
 ROOT = Path('tei/schema')
 
 
@@ -33,10 +35,25 @@ def chunk_text(text: str, size: int = CHUNK_SIZE, overlap: int = CHUNK_OVERLAP):
         i += size - overlap
 
 
+def parse_args():
+    import argparse
+    p = argparse.ArgumentParser()
+    p.add_argument('--root', default=str(ROOT), help='Root directory to scan for schema files')
+    p.add_argument('--chunk-size', type=int, default=CHUNK_SIZE)
+    p.add_argument('--chunk-overlap', type=int, default=CHUNK_OVERLAP)
+    p.add_argument('--embed-model', default=EMBED_MODEL)
+    p.add_argument('--out-index', default=str(OUT_INDEX))
+    p.add_argument('--out-meta', default=str(OUT_META))
+    p.add_argument('--out-training', default=str(TRAINING_JSONL), help='Output JSONL training file')
+    return p.parse_args()
+
+
 def main():
-    files = list(iter_schema_files(ROOT))
+    args = parse_args()
+    root = Path(args.root)
+    files = list(iter_schema_files(root))
     if not files:
-        print('No schema files found under', ROOT)
+        print('No schema files found under', root)
         return
 
     # read and chunk
@@ -44,7 +61,7 @@ def main():
     metas = []
     for p in sorted(files):
         txt = p.read_text(encoding='utf-8', errors='ignore')
-        for i, chunk in enumerate(chunk_text(txt)):
+        for i, chunk in enumerate(chunk_text(txt, size=args.chunk_size, overlap=args.chunk_overlap)):
             docs.append(chunk)
             metas.append({'path': str(p), 'chunk_index': i, 'excerpt': chunk[:200]})
 
@@ -57,7 +74,7 @@ def main():
     from typing import Any, cast
 
     # Cast to Any for static analysis friendliness (some type stubs vary by install)
-    model = cast(Any, SentenceTransformer(EMBED_MODEL))
+    model = cast(Any, SentenceTransformer(args.embed_model))
     embeddings = model.encode(docs, show_progress_bar=True, convert_to_numpy=True)
     # Ensure embeddings is a 2D numpy array: (n_vectors, dim)
     if embeddings.ndim != 2:
@@ -68,11 +85,22 @@ def main():
     from typing import cast as _cast
     _cast(Any, index).add(embeddings)
 
-    OUT_INDEX.parent.mkdir(parents=True, exist_ok=True)
-    faiss.write_index(index, str(OUT_INDEX))
-    with open(OUT_META, 'w') as f:
-        json.dump(metas, f)
-    print('Wrote', OUT_INDEX, 'and', OUT_META)
+    out_index = Path(args.out_index)
+    out_meta = Path(args.out_meta)
+    out_training = Path(args.out_training)
+
+    out_index.parent.mkdir(parents=True, exist_ok=True)
+    faiss.write_index(index, str(out_index))
+    with open(out_meta, 'w', encoding='utf-8') as f:
+        json.dump(metas, f, ensure_ascii=False)
+    # write training JSONL: each line is {"text": chunk, "path": path, "chunk_index": i}
+    out_training.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_training, 'w', encoding='utf-8') as outf:
+        for m, doc in zip(metas, docs):
+            rec = {"text": doc, "path": m['path'], "chunk_index": m['chunk_index']}
+            outf.write(json.dumps(rec, ensure_ascii=False) + "\n")
+
+    print('Wrote', out_index, 'and', out_meta, 'and', out_training)
 
 
 if __name__ == '__main__':

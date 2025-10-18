@@ -21,6 +21,7 @@ Requires neo4j python driver in your active environment (pip install neo4j).
 import os
 import json
 import argparse
+import configparser
 from pathlib import Path
 
 try:
@@ -37,6 +38,7 @@ def parse_args():
     p.add_argument("--password", default=os.environ.get("NEO4J_PASSWORD"))
     p.add_argument("--batch", type=int, default=500, help="Number of chunks per transaction")
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--cypher-only", action="store_true", help="Print Cypher UNWIND/MERGE query and a small sample of parameters instead of executing against Neo4j")
     return p.parse_args()
 
 
@@ -46,6 +48,41 @@ def load_meta(path: str):
         raise FileNotFoundError(p)
     with p.open("r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def read_neo4j_config(path: str = "config/neo4j.ini"):
+    """Read neo4j config from an ini file. Returns dict with possible keys: uri, user, password."""
+    p = Path(path)
+    if not p.exists():
+        return {}
+    cp = configparser.ConfigParser()
+    try:
+        cp.read(p)
+    except Exception:
+        return {}
+    for section in ("neo4j", "default"):
+        if section in cp:
+            sec = cp[section]
+            out = {}
+            # Accept keys like uri, user, password or neo4j_uri, neo4j_user, neo4j_password
+            def get_any(keys):
+                for k in keys:
+                    if sec.get(k) is not None:
+                        return sec.get(k)
+                return None
+
+            uri_val = get_any(("uri", "neo4j_uri", "neo4j-uri", "NEO4J_URI"))
+            user_val = get_any(("user", "neo4j_user", "neo4j-user", "NEO4J_USER"))
+            pwd_val = get_any(("password", "neo4j_password", "neo4j-password", "NEO4J_PASSWORD"))
+            if uri_val:
+                out["uri"] = uri_val
+            if user_val:
+                out["user"] = user_val
+            if pwd_val:
+                out["password"] = pwd_val
+            return out
+    # fallback: attempt top-level keys
+    return {}
 
 
 def ensure_constraints(tx):
@@ -61,7 +98,7 @@ def create_driver(uri, user, password):
     return GraphDatabase.driver(uri, auth=(user, password))
 
 
-def ingest(meta, uri, user, password, batch_size, dry_run):
+def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False):
     # Group by file path
     files = {}
     for item in meta:
@@ -73,6 +110,39 @@ def ingest(meta, uri, user, password, batch_size, dry_run):
     if dry_run:
         for path, chunks in list(files.items())[:5]:
             print(f"File: {path} -> {len(chunks)} chunks; sample excerpt len={len(chunks[0].get('excerpt',''))}")
+        return
+
+    if cypher_only:
+        # Print the Cypher query that would be run and a small sample of the rows for inspection.
+        print("Cypher-only mode: printing UNWIND/MERGE query and up to 3 sample parameter rows per batch (no DB activity)")
+        for path, chunks in list(files.items())[:5]:
+            print(f"\n--- File: {path} ({len(chunks)} chunks) ---")
+            for i in range(0, len(chunks), batch_size):
+                batch = chunks[i:i+batch_size]
+                records = []
+                for c in batch:
+                    chunk_index = int(c.get("chunk_index", 0))
+                    pathv = c.get("path")
+                    records.append({
+                        "path": pathv,
+                        "chunk_index": chunk_index,
+                        "excerpt": c.get("excerpt") or "",
+                        "chunk_id": f"{pathv}::chunk::{chunk_index}",
+                    })
+
+                query = """
+                UNWIND $rows AS r
+                MERGE (f:File {path: r.path})
+                MERGE (c:Chunk {id: r.chunk_id})
+                SET c.path = r.path, c.chunk_index = r.chunk_index, c.excerpt = r.excerpt
+                MERGE (f)-[:HAS_CHUNK]->(c)
+                """
+                print("Query:\n" + query.strip())
+                # print up to 3 sample parameter rows
+                import json as _json
+                sample = records[:3]
+                print("Sample rows:")
+                print(_json.dumps(sample, ensure_ascii=False, indent=2)[:2000])
         return
 
     if password is None:
@@ -119,7 +189,13 @@ def ingest(meta, uri, user, password, batch_size, dry_run):
 def main():
     args = parse_args()
     meta = load_meta(args.meta_file)
-    ingest(meta, args.uri, args.user, args.password, args.batch, args.dry_run)
+    # If env vars or cli args don't provide Neo4j creds, try config/neo4j.ini
+    cfg = read_neo4j_config()
+    uri = args.uri or cfg.get("uri")
+    user = args.user or cfg.get("user")
+    password = args.password or cfg.get("password")
+
+    ingest(meta, uri, user, password, args.batch, args.dry_run, cypher_only=args.cypher_only)
 
 
 if __name__ == "__main__":

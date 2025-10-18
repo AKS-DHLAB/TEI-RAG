@@ -65,10 +65,10 @@ NEO4J_PASSWORD=your_password_here
 python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss
 ```
 
-로컬 LLM을 호출하려면(예: gpt2로 빠른 스모크 테스트):
+로컬 LLM을 호출하려면(예: kanana-nano로 스모크 테스트):
 
 ```bash
-python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model gpt2 --force-json --max-new-tokens 128
+python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model kakaocorp/kanana-nano-2.1b-base --force-json --max-new-tokens 128
 ```
 
 kanana 모델 사용 안내
@@ -112,8 +112,8 @@ kanana 모델 사용 안내
 # 프롬프트 미리보기
 python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss
 
-# kanana/gpt2 테스트(예시)
-python scripts/rag_integration.py --question "문서에서 'chapter'와 'section'의 차이점을 요약해 주세요." --limit 3 --use-faiss --call-llm --llm-model gpt2 --force-json --max-new-tokens 128
+# kanana 테스트(예시)
+python scripts/rag_integration.py --question "문서에서 'chapter'와 'section'의 차이점을 요약해 주세요." --limit 3 --use-faiss --call-llm --llm-model kakaocorp/kanana-nano-2.1b-base --force-json --max-new-tokens 128
 ```
 
 
@@ -194,11 +194,11 @@ source .venv/bin/activate
 python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss
 ```
 
-로컬 LLM 호출(간단한 스모크 테스트):
+# 로컬 LLM 호출(간단한 스모크 테스트):
 
 ```bash
 source .venv/bin/activate
-python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model gpt2 --force-json --max-new-tokens 128
+python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model kakaocorp/kanana-nano-2.1b-base --force-json --max-new-tokens 128
 ```
 
 kanana 모델 예시(대규모 모델, 다운로드/로딩 시간 주의):
@@ -290,10 +290,10 @@ E2E 실행 (dry-run 및 LLM 콜)
 python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss
 ```
 
-- 로컬 LLM 호출(예: gpt2로 빠른 스모크 테스트)
+-- 로컬 LLM 호출(예: kanana-nano로 빠른 스모크 테스트)
 
 ```bash
-python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model gpt2 --force-json --max-new-tokens 128
+python scripts/rag_integration.py --question "TEI에서 element 'text'의 용도는 무엇인가요?" --limit 3 --use-faiss --call-llm --llm-model kakaocorp/kanana-nano-2.1b-base --force-json --max-new-tokens 128
 ```
 
 - kanana(사용자 환경에 따라 대형 모델; trust_remote_code 필요)

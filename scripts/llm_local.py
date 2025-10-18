@@ -104,7 +104,7 @@ def _load_model_and_tokenizer(model_name: str, trust_remote_code: bool = False):
 
 def generate_from_prompt(
     prompt: str,
-    model_name: str = "gpt2",
+    model_name: str = "kakaocorp/kanana-nano-2.1b-base",
     max_new_tokens: int = 128,
     temperature: float = 0.7,
     trust_remote_code: bool = False,
@@ -114,7 +114,7 @@ def generate_from_prompt(
 
     Parameters
     - prompt: full prompt string (system+context+user) to feed to the model.
-    - model_name: HF model identifier (e.g., 'gpt2' or 'kakaocorp/kanana-nano-2.1b-base').
+    - model_name: HF model identifier (e.g., 'kakaocorp/kanana-nano-2.1b-base').
     - max_new_tokens: maximum number of tokens to generate.
     - temperature: sampling temperature (applied only when sampling is enabled).
     - trust_remote_code: pass-through to transformers when model requires remote code.
