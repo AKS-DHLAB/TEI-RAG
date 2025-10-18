@@ -107,7 +107,7 @@ def _load_model_and_tokenizer(model_name: str, trust_remote_code: bool = False):
 def generate_from_prompt(
     prompt: str,
     model_name: str = "kakaocorp/kanana-nano-2.1b-base",
-    max_new_tokens: int = 128,
+    max_new_tokens: int = 2048,
     temperature: float = 0.7,
     trust_remote_code: bool = False,
     **gen_kwargs,

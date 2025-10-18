@@ -123,7 +123,7 @@ if _STREAMLIT_CHILD:
     show_debug = st.sidebar.checkbox("Show debug queries/responses", value=True)
     # 기본 모델을 kanana로 설정합니다. 로컬에 모델이 없으면 처음 로드에 시간이 걸릴 수 있습니다.
     llm_model = st.sidebar.text_input("LLM model", value="kakaocorp/kanana-nano-2.1b-base")
-    max_new_tokens = st.sidebar.number_input("Max new tokens", min_value=16, max_value=2048, value=256, step=16)
+    max_new_tokens = st.sidebar.number_input("Max new tokens", min_value=16, max_value=2048, value=2048, step=16)
     # Generation params
     temperature = st.sidebar.slider("Temperature", 0.0, 1.5, 0.7, 0.05)
     do_sample = st.sidebar.checkbox("Do sample (stochastic)", value=True)

@@ -55,3 +55,4 @@ backups/
 # VSCode
 .vscode/
 
+.streamlit_pid
