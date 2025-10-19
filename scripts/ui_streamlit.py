@@ -130,6 +130,34 @@ if _STREAMLIT_CHILD:
             st.error(f"Failed to load embedder: {e}\nInstall sentence-transformers and its dependencies.")
             return None
 
+    # When the user edits the question, clear any previous run/results so the
+    # UI does not display stale outputs. By default this preserves loaded
+    # models/embedders. For a full reset (unload models), use the 'Full reset'
+    # button in the sidebar.
+    def _clear_query_state(keep_models: bool = True):
+        # Keys that hold previous results or temporary state
+        keys_to_clear = [
+            'run', 'raw_model_output', 'retrieved_hits', 'final_hits',
+            'neo4j_rows', 'neo4j_facts', 'prompt_preview', 'last_prompt'
+        ]
+        for k in keys_to_clear:
+            if k in st.session_state:
+                del st.session_state[k]
+        if not keep_models:
+            # Unset load flags and attempt to unload embedder instances
+            if 'llm_loaded' in st.session_state:
+                del st.session_state['llm_loaded']
+            if 'embedder_loaded' in st.session_state:
+                del st.session_state['embedder_loaded']
+            try:
+                import importlib
+
+                util = importlib.import_module('scripts.utils')
+                util.unload_all_embedders()
+            except Exception:
+                # best-effort unload; ignore failures here
+                pass
+
     st.set_page_config(page_title="RAG Query UI", layout="wide")
 
     st.title("RAG Query UI")
@@ -188,7 +216,16 @@ if _STREAMLIT_CHILD:
 
                     st.info(f"Elapsed before failure: {time.time()-t0:.1f}s")
 
-    question = st.text_area("Question", height=120, key="question_input")
+    question = st.text_area("Question", height=120, key="question_input", on_change=lambda: _clear_query_state(True))
+
+    # Sidebar controls: allow user to perform a full reset if desired
+    if st.sidebar.button("Reset outputs (keep models)"):
+        _clear_query_state(keep_models=True)
+        st.success("Cleared previous outputs (models retained).")
+
+    if st.sidebar.button("Full reset (unload models)"):
+        _clear_query_state(keep_models=False)
+        st.success("Performed full reset and attempted to unload embedders/models.")
 
     col1, col2 = st.columns([2, 1])
 
