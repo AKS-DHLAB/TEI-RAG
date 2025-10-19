@@ -39,6 +39,10 @@ def parse_args():
     p.add_argument("--batch", type=int, default=500, help="Number of chunks per transaction")
     p.add_argument("--dry-run", action="store_true")
     p.add_argument("--cypher-only", action="store_true", help="Print Cypher UNWIND/MERGE query and a small sample of parameters instead of executing against Neo4j")
+    p.add_argument("--with-embeddings", action="store_true", help="Compute embeddings for chunks and store as c.embedding in Neo4j")
+    p.add_argument("--embed-model", default=None, help="Embedder model to use (defaults to utils.DEFAULT_EMBED_MODEL)")
+    p.add_argument("--training-file", default=str(Path('data/tei_training_data.jsonl')),
+                   help="JSONL with full chunk texts used for embedding (path,chunk_index,text)")
     return p.parse_args()
 
 
@@ -98,7 +102,7 @@ def create_driver(uri, user, password):
     return GraphDatabase.driver(uri, auth=(user, password))
 
 
-def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False):
+def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False, with_embeddings=False, embed_model=None):
     # Group by file path
     files = {}
     for item in meta:
@@ -157,17 +161,35 @@ def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False):
                 print(f"Creating File node for {path} with {len(chunks)} chunks")
                 sess.execute_write(lambda tx, p=path: tx.run("MERGE (f:File {path:$path}) SET f.filename = $filename", path=p, filename=Path(p).name))
 
+                # Prepare full-text lookup if embeddings will be computed
+                full_text_map = {}
+                # delay import for performance
+                from pathlib import Path as _P
+                training_path = _P('data/tei_training_data.jsonl')
+                if training_path.exists():
+                    with training_path.open('r', encoding='utf-8') as tf:
+                        for line in tf:
+                            try:
+                                rec = json.loads(line)
+                            except Exception:
+                                continue
+                            key = (rec.get('path'), rec.get('chunk_index'))
+                            full_text_map[key] = rec.get('text')
+
                 for i in range(0, len(chunks), batch_size):
                     batch = chunks[i:i+batch_size]
                     records = []
                     for c in batch:
                         chunk_index = int(c.get("chunk_index", 0))
                         pathv = c.get("path")
+                        text = full_text_map.get((pathv, chunk_index)) or c.get('excerpt') or ''
                         records.append({
                             "path": pathv,
                             "chunk_index": chunk_index,
                             "excerpt": c.get("excerpt") or "",
                             "chunk_id": f"{pathv}::chunk::{chunk_index}",
+                            "text": text,
+                            "embedding": None,
                         })
 
                     def tx_func(tx, recs):
@@ -175,11 +197,27 @@ def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False):
                         UNWIND $rows AS r
                         MERGE (f:File {path: r.path})
                         MERGE (c:Chunk {id: r.chunk_id})
-                        SET c.path = r.path, c.chunk_index = r.chunk_index, c.excerpt = r.excerpt
+                        SET c.path = r.path, c.chunk_index = r.chunk_index, c.excerpt = r.excerpt, c.embedding = r.embedding
                         MERGE (f)-[:HAS_CHUNK]->(c)
                         """
                         tx.run(query, rows=recs)
 
+                    # If embeddings were requested, compute them here per-batch
+                    if with_embeddings:
+                        try:
+                            from scripts.utils import get_cached_embedder
+                            emb = get_cached_embedder(embed_model)
+                            texts = [r['text'] for r in records]
+                            vecs = emb.encode(texts, show_progress_bar=False, convert_to_numpy=True)
+                            import numpy as _np
+                            if vecs.ndim == 1:
+                                vecs = _np.expand_dims(vecs, 0)
+                            for jj, r in enumerate(records):
+                                r['embedding'] = vecs[jj].tolist()
+                        except Exception as e:
+                            print(f"Embedding computation failed for batch starting at {i}: {e}")
+
+                    # Execute write; embedding values may be None if not computed
                     sess.execute_write(tx_func, records)
 
     finally:
@@ -189,13 +227,19 @@ def ingest(meta, uri, user, password, batch_size, dry_run, cypher_only=False):
 def main():
     args = parse_args()
     meta = load_meta(args.meta_file)
-    # If env vars or cli args don't provide Neo4j creds, try config/neo4j.ini
-    cfg = read_neo4j_config()
-    uri = args.uri or cfg.get("uri")
-    user = args.user or cfg.get("user")
-    password = args.password or cfg.get("password")
+    # Centralized config loader
+    try:
+        from scripts.utils import get_neo4j_credentials
+        creds = get_neo4j_credentials()
+        uri = args.uri or creds.get('uri')
+        user = args.user or creds.get('user')
+        password = args.password or creds.get('password')
+    except Exception:
+        uri = args.uri
+        user = args.user
+        password = args.password
 
-    ingest(meta, uri, user, password, args.batch, args.dry_run, cypher_only=args.cypher_only)
+    ingest(meta, uri, user, password, args.batch, args.dry_run, cypher_only=args.cypher_only, with_embeddings=args.with_embeddings, embed_model=args.embed_model)
 
 
 if __name__ == "__main__":

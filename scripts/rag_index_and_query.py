@@ -3,7 +3,7 @@
 
 Usage:
   # Build index
-  python scripts/rag_index_and_query.py --mode build --docs docs --index-path data/faiss.index --meta-path data/meta.json --embed-model sentence-transformers/all-MiniLM-L6-v2
+        python scripts/rag_index_and_query.py --mode build --docs docs --index-path data/faiss.index --meta-path data/meta.json --embed-model BAAI/bge-m3
 
   # Query
   python scripts/rag_index_and_query.py --mode query --index-path data/faiss.index --meta-path data/meta.json --hf-model kakaocorp/kanana-nano-2.1b-base
@@ -120,7 +120,8 @@ def query_index(index_path: Path, meta_path: Path, hf_model: str, topk: int = 3,
 
     # embed model instance for queries
     from sentence_transformers import SentenceTransformer
-    sbert = cast(Any, SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2'))
+    from scripts.utils import DEFAULT_EMBED_MODEL
+    sbert = cast(Any, SentenceTransformer(DEFAULT_EMBED_MODEL))
 
     while True:
         try:
@@ -167,7 +168,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', choices=['build', 'query'], required=True)
     parser.add_argument('--docs', type=str, default='docs')
-    parser.add_argument('--embed-model', type=str, default='sentence-transformers/all-MiniLM-L6-v2')
+    from scripts.utils import DEFAULT_EMBED_MODEL
+    parser.add_argument('--embed-model', type=str, default=DEFAULT_EMBED_MODEL)
     parser.add_argument('--index-path', type=str, default='data/faiss.index')
     parser.add_argument('--meta-path', type=str, default='data/meta.json')
     parser.add_argument('--hf-model', type=str, default='kakaocorp/kanana-nano-2.1b-base')

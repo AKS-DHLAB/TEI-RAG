@@ -21,11 +21,22 @@ def create_driver(
     Credentials may be supplied as arguments or read from the environment
     variables: NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD. Password is required.
     """
+    # Try provided args, then env, then centralized config
+    if uri is None or user is None or password is None:
+        try:
+            from scripts.utils import get_neo4j_credentials
+            creds = get_neo4j_credentials()
+            uri = uri or creds.get('uri')
+            user = user or creds.get('user')
+            password = password or creds.get('password')
+        except Exception:
+            pass
+
     uri = uri or os.environ.get("NEO4J_URI", "bolt://localhost:7687")
     user = user or os.environ.get("NEO4J_USER", "neo4j")
     password = password or os.environ.get("NEO4J_PASSWORD")
     if password is None:
-        raise ValueError("NEO4J_PASSWORD must be provided via env or argument")
+        raise ValueError("NEO4J_PASSWORD must be provided via env, config file, or argument")
     return GraphDatabase.driver(uri, auth=(user, password))
 
 
@@ -86,16 +97,25 @@ def get_related_facts(driver, chunk_ids: Sequence[str], max_depth: int = 1) -> L
     if not chunk_ids:
         return []
 
-    # Cypher: for each chunk id, find neighbors within depth and return distinct nodes
+    # Build Cypher dynamically so the variable-length path upper bound is a
+    # literal number (Neo4j does not accept parameter maps inside MATCH patterns
+    # nor parameterized upper-bounds in the variable-length syntax). We still
+    # pass the list of ids and the result limit as parameters to avoid
+    # injection on those values.
+    depth_val = int(max_depth or 1)
+    if depth_val < 1:
+        depth_val = 1
+
     cypher = (
         "UNWIND $ids AS cid\n"
-        "MATCH (c:Chunk {id:cid})-[*1..$depth]-(n)\n"
+        "MATCH (c:Chunk) WHERE c.id = cid\n"
+        f"MATCH (c)-[*1..{depth_val}]-(n)\n"
         "WHERE NOT n:Chunk\n"
         "RETURN DISTINCT n LIMIT $limit"
     )
 
-    def _tx(tx, ids, depth, limit):
-        res = tx.run(cypher, ids=ids, depth=depth, limit=limit)
+    def _tx(tx, ids, limit):
+        res = tx.run(cypher, ids=ids, limit=limit)
         out = []
         for r in res:
             node = r["n"]
@@ -119,5 +139,6 @@ def get_related_facts(driver, chunk_ids: Sequence[str], max_depth: int = 1) -> L
         return out
 
     # cap results to avoid huge responses
+    max_limit = max(50, len(chunk_ids) * 5)
     with driver.session() as s:
-        return s.execute_read(_tx, chunk_ids, max_depth, max(50, len(chunk_ids) * 5))
+        return s.execute_read(_tx, chunk_ids, max_limit)

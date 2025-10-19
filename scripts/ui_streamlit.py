@@ -9,6 +9,33 @@ import json
 from typing import List, Dict
 
 
+def _load_full_texts_for(retrieved, training_path='data/tei_training_data.jsonl'):
+    """Load full text for a list of retrieved items (by path and chunk_index).
+
+    Returns a dict keyed by (path, chunk_index) -> text.
+    """
+    need = {(r.get('path'), r.get('chunk_index')) for r in retrieved}
+    out = {}
+    tp = Path(training_path)
+    if not tp.exists():
+        return out
+    try:
+        with open(tp, 'r', encoding='utf-8') as f:
+            for line in f:
+                try:
+                    rec = json.loads(line)
+                except Exception:
+                    continue
+                key = (rec.get('path'), rec.get('chunk_index'))
+                if key in need:
+                    out[key] = rec.get('text')
+                    if len(out) == len(need):
+                        break
+    except Exception:
+        return out
+    return out
+
+
 def _is_port_in_use(port: int) -> bool:
     import socket
 
@@ -95,18 +122,10 @@ if _STREAMLIT_CHILD:
 
 
     def get_cached_embedder():
-        key = "embedder::sbert"
-        if key in st.session_state:
-            return st.session_state[key]
         try:
-            # lazy import to avoid c-extension init at module import time
-            from sentence_transformers import SentenceTransformer
-
-            import torch
-            sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
-            model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
-            st.session_state[key] = model
-            return model
+            import importlib
+            util = importlib.import_module('scripts.utils')
+            return util.get_cached_embedder()
         except Exception as e:  # pragma: no cover - runtime import guard
             st.error(f"Failed to load embedder: {e}\nInstall sentence-transformers and its dependencies.")
             return None
@@ -125,7 +144,14 @@ if _STREAMLIT_CHILD:
     rerank_top_k = st.sidebar.number_input("Re-rank: top K", min_value=1, max_value=10, value=3)
     use_compression = st.sidebar.checkbox("Compress chunks using full text (1-3 sentences)", value=False)
     compress_sentences = st.sidebar.number_input("Top sentences per chunk", min_value=1, max_value=5, value=3)
-    prefer_mps = st.sidebar.checkbox("Prefer MPS (Apple silicon) for model/embedder", value=False)
+    # Display the auto-selected device (choose_device handles automatic selection)
+    try:
+        import importlib
+        llm_local = importlib.import_module('scripts.llm_local')
+        auto_device = llm_local.choose_device()
+    except Exception:
+        auto_device = 'unknown'
+    st.sidebar.markdown(f"**Auto-selected device:** {auto_device}")
     # 기본 모델을 kanana로 설정합니다. 로컬에 모델이 없으면 처음 로드에 시간이 걸릴 수 있습니다.
     llm_model = st.sidebar.text_input("LLM model", value="kakaocorp/kanana-nano-2.1b-base")
     max_new_tokens = st.sidebar.number_input("Max new tokens", min_value=16, max_value=2048, value=2048, step=16)
@@ -162,7 +188,7 @@ if _STREAMLIT_CHILD:
 
                     st.info(f"Elapsed before failure: {time.time()-t0:.1f}s")
 
-    question = st.text_area("Question", height=120)
+    question = st.text_area("Question", height=120, key="question_input")
 
     col1, col2 = st.columns([2, 1])
 
@@ -196,12 +222,13 @@ if _STREAMLIT_CHILD:
 
                     import torch
                     sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
-                    sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
-                    # Respect the UI preference for MPS when loading models in this process
-                    if prefer_mps:
-                        os.environ['PREFER_MPS'] = '1'
-                    else:
-                        os.environ.pop('PREFER_MPS', None)
+                    # Use centralized DEFAULT_EMBED_MODEL via get_cached_embedder()
+                    try:
+                        from scripts.utils import get_cached_embedder
+                        sbert = get_cached_embedder()
+                    except Exception:
+                        # fallback to previous SBERT for compatibility
+                        sbert = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2", device=sbert_device)
                     qv = sbert.encode([question], convert_to_numpy=True)
                     idx = faiss.read_index(str(index_file))
                     D, I = idx.search(qv, 5)
@@ -298,8 +325,19 @@ if _STREAMLIT_CHILD:
                     st.warning(f"Compression failed: {e}")
 
             st.subheader("Retrieved Chunks")
+            # try to load full texts for nicer display
+            fulls_for_hits = _load_full_texts_for(hits)
             for h in hits:
-                st.markdown(f"**{h.get('id', h.get('path',''))}** - {h.get('path','')}\n\n{h.get('excerpt', h.get('text_snippet',''))}")
+                title = f"{h.get('id', h.get('path',''))} - {h.get('path','')}"
+                snippet = h.get('excerpt', h.get('text_snippet',''))
+                key = (h.get('path'), h.get('chunk_index'))
+                full_text = fulls_for_hits.get(key)
+                with st.expander(title):
+                    if full_text:
+                        # show full chunk text in an expander with unique key
+                        st.text_area('Full chunk text', value=full_text, height=220, key=f"full_chunk::{h.get('path')}::{h.get('chunk_index')}")
+                    else:
+                        st.write(snippet)
 
             neo4j_facts = []
             if use_neo4j and hits:
@@ -372,6 +410,19 @@ if _STREAMLIT_CHILD:
                             st.write('neo4j raw rows (first 10):')
                             for r in neo4j_rows[:10]:
                                 st.json(r)
+                        # also show expanded cited chunks with full text when available
+                        if neo4j_rows:
+                            st.subheader('Expanded cited chunks')
+                            fulls = _load_full_texts_for(neo4j_rows)
+                            for r in neo4j_rows:
+                                title = r.get('id') or r.get('path')
+                                key = (r.get('path'), r.get('chunk_index'))
+                                with st.expander(title):
+                                    full_text = fulls.get(key)
+                                    if full_text:
+                                        st.text_area('Full chunk text', value=full_text, height=220, key=f"expanded_chunk::{r.get('path')}::{r.get('chunk_index')}")
+                                    else:
+                                        st.json(r)
                 except Exception as e:  # pragma: no cover - runtime import guard
                     st.error(f"Neo4j fetch failed: {e}")
 
@@ -410,7 +461,7 @@ if _STREAMLIT_CHILD:
                         do_sample=do_sample,
                         temperature=temperature,
                     )
-                    st.text_area("Raw model output", value=raw, height=240)
+                    st.text_area("Raw model output", value=raw, height=240, key="raw_model_output")
 
                     # Try basic JSON extraction heuristics
                     import re
@@ -468,18 +519,26 @@ if _STREAMLIT_CHILD:
 
 
 if __name__ == "__main__" and not _STREAMLIT_CHILD:
-    # Launcher mode: start neo4j and streamlit as background services.
-    print("Launching neo4j (if available) and Streamlit in background...")
+    # Replace the original launcher behavior with a deterministic exec that
+    # starts Streamlit in the same venv Python but with STREAMLIT_CHILD=1 and
+    # PYTHONPATH set to the repository root. This makes the default invocation
+    # equivalent to running:
+    # PYTHONPATH=/path/to/repo STREAMLIT_CHILD=1 /path/to/venv/bin/python -m streamlit run scripts/ui_streamlit.py --server.port 8501
     try:
-        _start_neo4j_background()
-    except Exception as e:
-        print(f"neo4j start attempt failed: {e}", file=sys.stderr)
+        repo_root = Path(__file__).resolve().parents[1]
+        env = os.environ.copy()
+        env["STREAMLIT_CHILD"] = "1"
+        # Ensure project root is on PYTHONPATH for module-style imports
+        env["PYTHONPATH"] = str(repo_root)
 
-    try:
-        _start_streamlit_background()
-    except Exception as e:
-        print(f"streamlit start attempt failed: {e}", file=sys.stderr)
+        python = sys.executable
+        args = [python, "-m", "streamlit", "run", str(Path(__file__)), "--server.port", "8501"]
 
-    print("Launcher finished. Streamlit logs: logs/streamlit_background.log")
+        print("Starting Streamlit (foreground) with STREAMLIT_CHILD=1 and PYTHONPATH set to repo root...")
+        # Replace current process with the Streamlit process so signals/IO
+        # behave as expected for foreground execution.
+        os.execvpe(python, args, env)
+    except Exception as e:
+        print(f"Failed to exec Streamlit: {e}", file=sys.stderr)
 
 

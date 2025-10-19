@@ -41,9 +41,11 @@ except Exception:
     CrossEncoder = None
 
 try:
-    from sentence_transformers import SentenceTransformer
+    # We still import modules conditionally; embedder instances should be acquired
+    # via scripts.embedder_cache.get_cached_embedder() to avoid repeated loads.
     import numpy as np
     import faiss
+    SentenceTransformer = True
 except Exception:
     SentenceTransformer = None
     np = None
@@ -87,7 +89,7 @@ def rerank_chunks(query: str, retrieved: List[dict], model_name: str = 'sentence
     return retrieved[:top_k]
 
 
-def extract_top_sentences(text: str, query: str, n: int = 3, embed_model: str = 'sentence-transformers/all-MiniLM-L6-v2') -> str:
+def extract_top_sentences(text: str, query: str, n: int = 3, embed_model: Optional[str] = None) -> str:
     """Extract up to n sentences from text most similar to query using SBERT embeddings.
 
     Returns concatenated sentences as a single string (joined by space).
@@ -101,7 +103,9 @@ def extract_top_sentences(text: str, query: str, n: int = 3, embed_model: str = 
     try:
         if SentenceTransformer is None:
             raise RuntimeError('no sbert')
-        emb = SentenceTransformer(embed_model)
+        # use embedder cache
+        from scripts.utils import get_cached_embedder
+        emb = get_cached_embedder(embed_model)
         import numpy as _np
         qv = emb.encode([query], convert_to_numpy=True)[0]
         svecs = emb.encode(sentences, convert_to_numpy=True)
@@ -121,15 +125,14 @@ def simulate_retrieval(meta: List[dict], limit: int = 5):
     return meta[:limit]
 
 
-def faiss_retrieval(meta: List[dict], index_path: str, query: str, model_name: str = 'all-MiniLM-L6-v2', topk: int = 5):
+def faiss_retrieval(meta: List[dict], index_path: str, query: str, model_name: Optional[str] = None, topk: int = 5):
     if SentenceTransformer is None or faiss is None or np is None:
         raise RuntimeError('FAISS or sentence-transformers not available in environment')
-
     idx = faiss.read_index(index_path)
-    import torch
-    sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = SentenceTransformer(model_name, device=sbert_device)
-    qemb = model.encode([query], show_progress_bar=False, convert_to_numpy=True)
+    # use cached embedder to avoid repeated model loads
+    from scripts.utils import get_cached_embedder
+    emb = get_cached_embedder(model_name)
+    qemb = emb.encode([query], show_progress_bar=False, convert_to_numpy=True)
     qemb = np.array(qemb).astype('float32')
     D, I = idx.search(qemb, topk)
     ids = I[0].tolist() if hasattr(I, '__len__') else list(I)
@@ -307,7 +310,14 @@ def main():
         for r in compressed:
             cid = r.get('id') or f"{r.get('path')}::chunk::{r.get('chunk_index')}"
             chunk_ids.append(cid)
-        neo4j_facts = get_related_facts(create_driver(), chunk_ids, max_depth=1)
+        # prefer centralized config for neo4j creds
+        try:
+            from scripts.utils import get_neo4j_credentials
+            creds = get_neo4j_credentials()
+            drv = create_driver(creds.get('uri'), creds.get('user'), creds.get('password'))
+        except Exception:
+            drv = create_driver()
+        neo4j_facts = get_related_facts(drv, chunk_ids, max_depth=1)
         print('\n=== Neo4j related facts (derived) ===\n')
         print(json.dumps(neo4j_facts, ensure_ascii=False, indent=2)[:4000])
     except Exception as _e:
@@ -363,7 +373,9 @@ def main():
             json_instructions = (
                 "\n\nIMPORTANT: Your response MUST START with the literal marker <JSON> and END with </JSON>.\n"
                 "Output ONLY a single well-formed JSON object between these markers with keys: \"answer\" (string) and \"citations\" (array of strings).\n"
-                "Do not output any additional commentary before, after, or outside the markers.\n"
+                "Do NOT output any explanatory text, salutations, notes, or comments before or after the JSON block.\n"
+                "If you cannot answer from the provided sources, the JSON must be: {\"answer\": \"I don't know based on the provided sources.\", \"citations\": []}.\n"
+                "Strictly ensure there are no leading or trailing characters outside the <JSON>...</JSON> markers.\n"
             )
 
             if example_json:

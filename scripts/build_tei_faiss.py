@@ -12,7 +12,8 @@ import json
 
 CHUNK_SIZE = 800
 CHUNK_OVERLAP = 100
-EMBED_MODEL = 'sentence-transformers/all-MiniLM-L6-v2'
+from scripts.utils import DEFAULT_EMBED_MODEL
+EMBED_MODEL = DEFAULT_EMBED_MODEL
 OUT_INDEX = Path('data/faiss_tei.index')
 OUT_META = Path('data/faiss_tei_meta.json')
 TRAINING_JSONL = Path('data/tei_training_data.jsonl')
@@ -73,11 +74,11 @@ def main():
     import faiss
     from typing import Any, cast
 
-    # Cast to Any for static analysis friendliness (some type stubs vary by install)
-    import torch
-    sbert_device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    model = cast(Any, SentenceTransformer(args.embed_model, device=sbert_device))
-    embeddings = model.encode(docs, show_progress_bar=True, convert_to_numpy=True)
+    # Use centralized embedder loader which will try SentenceTransformer first
+    # and fall back to a HF-based embedder if necessary.
+    from scripts.utils import get_cached_embedder
+    emb = get_cached_embedder(args.embed_model)
+    embeddings = emb.encode(docs, show_progress_bar=True, convert_to_numpy=True)
     # Ensure embeddings is a 2D numpy array: (n_vectors, dim)
     if embeddings.ndim != 2:
         raise RuntimeError(f"Unexpected embeddings shape {embeddings.shape}; expected 2D array")
