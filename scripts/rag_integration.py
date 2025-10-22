@@ -52,6 +52,388 @@ except Exception:
     faiss = None
 
 
+# --- Embedded TeiFaissWithNeo4j implementation (merged from scripts/tei_faiss_with_neo4j.py)
+from dataclasses import dataclass
+from enum import Enum
+import re
+from typing import Tuple, Dict
+from neo4j import GraphDatabase
+from scripts.utils import get_neo4j_credentials, get_cached_embedder
+
+
+class QueryType(Enum):
+    STRUCTURE = "structure"
+    SEMANTIC = "semantic"
+    HYBRID = "hybrid"
+
+
+class ConfidenceLevel(Enum):
+    STRUCTURE = "구조 기반 ✅"
+    SEMANTIC = "의미 기반 ⚡"
+    HYBRID = "혼합 기반 ⭐"
+
+
+@dataclass
+class Element:
+    id: str
+    file_id: str
+    tag: str
+    text: str
+    attributes: Dict
+    chunk_index: int
+    embedding: Optional[List[float]] = None
+    embedding_dim: Optional[int] = None
+
+
+@dataclass
+class SearchResult:
+    elements: List[Element]
+    query_type: QueryType
+    confidence: ConfidenceLevel
+    confidence_score: float
+    explanation: str
+
+
+class TeiFaissWithNeo4j:
+    def __init__(
+        self,
+        neo4j_uri: Optional[str] = None,
+        neo4j_user: Optional[str] = None,
+        neo4j_password: Optional[str] = None,
+        faiss_index_path: str = "data/faiss_tei.index",
+        faiss_meta_path: str = "data/faiss_tei_meta.json",
+    ):
+        creds = get_neo4j_credentials()
+        uri = neo4j_uri or creds.get("uri")
+        user = neo4j_user or creds.get("user")
+        pwd = neo4j_password or creds.get("password")
+
+        self._driver = None
+        try:
+            if uri:
+                if user and pwd:
+                    auth = (user, pwd)
+                    self._driver = GraphDatabase.driver(uri, auth=auth)
+                else:
+                    # no auth provided
+                    self._driver = GraphDatabase.driver(uri)
+        except Exception:
+            self._driver = None
+
+        self.faiss_index_path = faiss_index_path
+        self.faiss_meta_path = faiss_meta_path
+        self.index = None
+        self.meta = []
+        if Path(self.faiss_meta_path).exists():
+            try:
+                with open(self.faiss_meta_path, "r", encoding="utf-8") as f:
+                    self.meta = json.load(f)
+            except Exception:
+                self.meta = []
+
+        if faiss is not None and Path(self.faiss_index_path).exists():
+            try:
+                self.index = faiss.read_index(self.faiss_index_path)
+            except Exception:
+                self.index = None
+
+        # embedder is lazy
+        self._embedder = None
+
+    def _ensure_embedder(self):
+        if self._embedder is None:
+            try:
+                self._embedder = get_cached_embedder()
+            except Exception:
+                self._embedder = None
+        return self._embedder
+
+    def close(self):
+        if self._driver:
+            try:
+                self._driver.close()
+            except Exception:
+                pass
+
+    # -------------------- classify_query --------------------
+    def classify_query(self, query: str) -> Tuple[QueryType, Dict]:
+        q = query.lower()
+        meta: Dict = {"structure_keywords": [], "element_tags": [], "numbers": []}
+
+        # detect numbers (chapter/act numbers)
+        nums = re.findall(r"\b(?:chapter|act|scene)\s*(\d+)\b", q)
+        if nums:
+            meta["numbers"] = [int(n) for n in nums]
+
+        # detect structure keywords
+        for k in ["chapter", "act", "scene", "section"]:
+            if k in q:
+                meta["structure_keywords"].append(k)
+
+        # detect element tags
+        for tag in ["note", "persname", "date", "div", "body", "line", "p"]:
+            if tag in q:
+                meta["element_tags"].append(tag)
+
+        # heuristics to classify
+        has_struct = bool(meta["structure_keywords"] or meta["numbers"])
+        has_tag = bool(meta["element_tags"])
+        has_sem = True
+        # if contains structure indicators -> hybrid
+        if has_struct and has_sem:
+            qtype = QueryType.HYBRID
+        elif has_struct:
+            qtype = QueryType.STRUCTURE
+        else:
+            qtype = QueryType.SEMANTIC
+
+        return qtype, meta
+
+    # -------------------- Neo4j structure search --------------------
+    def neo4j_structure_search(self, file_id: str, structure_metadata: Dict) -> List[Element]:
+        if not self._driver:
+            raise RuntimeError("Neo4j driver not configured")
+
+        # Pattern: Chapter N notes
+        numbers = structure_metadata.get("numbers") or []
+        tags = structure_metadata.get("element_tags") or []
+
+        results: List[Element] = []
+        with self._driver.session() as s:
+            if numbers and ("chapter" in structure_metadata.get("structure_keywords", [])):
+                # Best-effort: match div elements that likely represent chapters, then traverse ELEMENT_CHILD
+                num = numbers[0]
+                cy = (
+                    "MATCH (f:File {id:$file_id})-[:CONTAINS]->(chapter:Element)"
+                    " WHERE toLower(chapter.tag) = 'div'"
+                    " WITH chapter"
+                    " MATCH (chapter)-[:ELEMENT_CHILD*0..15]->(note:Element)"
+                    " WHERE toLower(note.tag) = 'note'"
+                    " RETURN note, chapter"
+                )
+                recs = s.run(cy, file_id=file_id)
+                for r in recs:
+                    n = r["note"]
+                    results.append(self._record_to_element(n))
+                return results
+
+            # generic tag search within file
+            if tags:
+                tag = tags[0]
+                cy = (
+                    "MATCH (f:File {id:$file_id})-[:CONTAINS]->(e:Element)"
+                    " WHERE toLower(e.tag) = $tag"
+                    " RETURN e ORDER BY e.xpath"
+                )
+                recs = s.run(cy, file_id=file_id, tag=tag.lower())
+                for r in recs:
+                    results.append(self._record_to_element(r["e"]))
+                return results
+
+            # fallback: return empty
+            return []
+
+    def _record_to_element(self, node) -> Element:
+        # node may be a neo4j Node or mapping-like
+        try:
+            props = dict(node.items())
+        except Exception:
+            # try attribute access
+            props = {}
+            for k in ["id", "file_id", "tag", "text", "attributes", "chunk_index", "embedding"]:
+                props[k] = node.get(k) if hasattr(node, 'get') else None
+
+        eid = props.get("id") or ""
+        file_id = props.get("file_id") or props.get("file") or ""
+        tag = props.get("tag") or ""
+        text = props.get("text") or ""
+        attributes = props.get("attributes") or {}
+        # attributes may be stored as a JSON string; try to parse
+        try:
+            if isinstance(attributes, str) and attributes.strip():
+                import json as _json
+                attributes = _json.loads(attributes)
+        except Exception:
+            # leave as original string if parse fails
+            pass
+        # Ensure attributes is a dict for type-checkers and downstream code
+        if not isinstance(attributes, dict):
+            attributes = {}
+        chunk_index = int(props.get("chunk_index") or 0)
+        emb = props.get("embedding")
+        emb_dim = None
+        try:
+            tmp = props.get("embedding_dim")
+            if isinstance(tmp, int):
+                emb_dim = int(tmp)
+            elif isinstance(tmp, str) and tmp.isdigit():
+                emb_dim = int(tmp)
+            elif emb:
+                emb_dim = len(emb)
+        except Exception:
+            emb_dim = None
+        return Element(id=eid, file_id=file_id, tag=tag, text=text, attributes=attributes, chunk_index=chunk_index, embedding=emb, embedding_dim=emb_dim)
+
+    # -------------------- FAISS semantic search --------------------
+    def faiss_semantic_search(self, query: str, top_k: int = 50, similarity_threshold: float = 0.55) -> List[Element]:
+        if self.index is None or np is None:
+            raise RuntimeError("FAISS index or numpy not available")
+
+        emb = self._ensure_embedder()
+        if emb is None:
+            raise RuntimeError("Embedder unavailable")
+
+        qv = emb.encode([query], convert_to_numpy=True)
+        qv = np.array(qv).astype('float32')
+        try:
+            D, I = self.index.search(qv, top_k)
+        except Exception as e:
+            raise
+
+        hits: List[Element] = []
+        # D may be distances; convert to similarity heuristic
+        for dist, idx in zip(D[0], I[0]):
+            if idx < 0 or idx >= len(self.meta):
+                continue
+            sim = 1.0 / (1.0 + float(dist)) if dist is not None else 0.0
+            if sim < similarity_threshold:
+                continue
+            m = self.meta[int(idx)]
+            e = Element(
+                id=m.get('id') or f"{m.get('path')}::chunk::{m.get('chunk_index')}",
+                file_id=m.get('path'),
+                tag=m.get('tag', ''),
+                # meta may use 'excerpt' (from build_tei_faiss) or 'text'/'text_snippet'
+                text=m.get('excerpt') or m.get('text_snippet') or m.get('text') or '',
+                attributes=m.get('attributes') or {},
+                chunk_index=int(m.get('chunk_index') or 0),
+                embedding=None,
+                embedding_dim=None,
+            )
+            hits.append(e)
+
+        return hits
+
+    # -------------------- Hybrid search --------------------
+    def hybrid_search(self, file_id: str, query: str, structure_metadata: Dict) -> List[Element]:
+        # 1. Neo4j structural filter -> get chunk indices
+        struct_elems = []
+        try:
+            struct_elems = self.neo4j_structure_search(file_id, structure_metadata)
+        except Exception:
+            struct_elems = []
+
+        struct_indices = {e.chunk_index for e in struct_elems if e.chunk_index is not None}
+
+        # 2. FAISS semantic search
+        sem_elems = []
+        try:
+            sem_elems = self.faiss_semantic_search(query, top_k=50)
+        except Exception:
+            sem_elems = []
+
+        sem_indices = {e.chunk_index for e in sem_elems}
+
+        # 3. intersection
+        inter = struct_indices & sem_indices
+
+        final: List[Element] = []
+        if inter:
+            # pick elements from meta that match intersection, preserve chunk_index order
+            idxs = sorted(list(inter))
+            for ci in idxs:
+                # find any matching element from sem_elems or struct_elems
+                found = next((e for e in sem_elems if e.chunk_index == ci), None)
+                if not found:
+                    found = next((e for e in struct_elems if e.chunk_index == ci), None)
+                if found:
+                    final.append(found)
+        else:
+            # fallbacks
+            if struct_elems:
+                final = struct_elems
+            else:
+                final = sem_elems
+
+        return final
+
+    # -------------------- validate_results --------------------
+    def validate_results(self, elements: List[Element], query_type: QueryType) -> Tuple[float, str]:
+        if query_type == QueryType.STRUCTURE:
+            return 1.0, "구조로 확정된 결과(정확도 매우 높음)"
+        if query_type == QueryType.SEMANTIC:
+            return 0.85, "FAISS 의미 검색 기반 결과(중간 신뢰도)"
+        # hybrid
+        return 0.97, "구조 + 의미 결합(고신뢰 결과)"
+
+    # -------------------- search (orchestrator) --------------------
+    def search(self, file_id: str, query: str, top_k: int = 20) -> SearchResult:
+        qtype, meta = self.classify_query(query)
+        if qtype == QueryType.STRUCTURE:
+            elems = self.neo4j_structure_search(file_id, meta)
+        elif qtype == QueryType.SEMANTIC:
+            elems = self.faiss_semantic_search(query, top_k=top_k)
+        else:
+            elems = self.hybrid_search(file_id, query, meta)
+
+        score, reason = self.validate_results(elems, qtype)
+        confidence = (
+            ConfidenceLevel.STRUCTURE if qtype == QueryType.STRUCTURE else
+            ConfidenceLevel.SEMANTIC if qtype == QueryType.SEMANTIC else
+            ConfidenceLevel.HYBRID
+        )
+
+        return SearchResult(elements=elems, query_type=qtype, confidence=confidence, confidence_score=score, explanation=reason)
+
+    # -------------------- utilities --------------------
+    def format_response(self, result: SearchResult) -> str:
+        lines = []
+        lines.append("=" * 60)
+        lines.append("🔍 검색 결과")
+        lines.append("=" * 60)
+        lines.append("")
+        lines.append("📊 통계:")
+        lines.append(f"  • 발견: {len(result.elements)}개 요소")
+        lines.append(f"  • 검색 유형: {result.query_type.value}")
+        lines.append(f"  • 신뢰도: [{result.confidence.value}] {result.confidence_score*100:.1f}%")
+        lines.append(f"  • 이유: {result.explanation}")
+        lines.append("")
+        lines.append("📝 결과:")
+        for i, e in enumerate(result.elements[:20], start=1):
+            lines.append(f"  {i}️⃣ 위치: Chunk {e.chunk_index}")
+            lines.append(f"     태그: <{e.tag}>")
+            lines.append(f"     속성: {e.attributes}")
+            snippet = (e.text or "")
+            if len(snippet) > 200:
+                snippet = snippet[:197] + "..."
+            lines.append(f"     내용: {snippet}")
+            lines.append("")
+        if len(result.elements) > 20:
+            lines.append(f"... 외 {len(result.elements)-20}개 (생략)")
+        lines.append("=" * 60)
+        return "\n".join(lines)
+
+    def to_json(self, result: SearchResult) -> Dict:
+        return {
+            "elements": [
+                {
+                    "id": e.id,
+                    "file_id": e.file_id,
+                    "tag": e.tag,
+                    "text": e.text,
+                    "attributes": e.attributes,
+                    "chunk_index": e.chunk_index,
+                }
+                for e in result.elements
+            ],
+            "query_type": result.query_type.value,
+            "confidence": result.confidence.value,
+            "confidence_score": result.confidence_score,
+            "explanation": result.explanation,
+        }
+
+
+
 def load_meta(path: str) -> List[dict]:
     with open(path, 'r', encoding='utf-8') as f:
         return json.load(f)

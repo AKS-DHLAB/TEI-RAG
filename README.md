@@ -1,3 +1,147 @@
+# TEI-RAG
+
+TEI-RAG는 TEI XML 자료를 구조(Element/Entity) 그래프로 Neo4j에 적재하고, Element 수준 임베딩을 생성해 FAISS 인덱스로 검색하는 RAG( Retrieval-Augmented Generation ) 파이프라인입니다. 로컬 LLM(또는 원격 모델)과 통합한 Streamlit UI를 통해 질문을 입력하고, 구조적/시맨틱 검색 결과를 검토하며 LLM 응답을 생성할 수 있습니다.
+
+이 README는 로컬 개발 환경(macOS 기준)에서 프로젝트를 설정하고 실행하는 방법, 주요 스크립트와 파일의 역할, 자주 발생하는 문제 및 해결 방법을 정리합니다.
+
+## 주요 구성 요소
+
+- `scripts/tei_to_neo4j.py` — TEI/XML 파일을 파싱해 `:Element`, `:Entity` 노드와 `:ELEMENT_CHILD`, `:CONTAINS`, `:CONTAINS_ENTITY` 관계를 Neo4j에 생성합니다. Element 임베딩을 계산하고 Neo4j의 `e.embedding` 속성으로 저장할 수 있습니다. 또한 Element 임베딩으로 FAISS 인덱스를 재구성합니다.
+- `scripts/rag_integration.py` — Neo4j 구조 검색과 FAISS 기반 의미 검색을 결합하는 RAG 오케스트레이션 유틸리티입니다. (검색/재정렬/프롬프트 빌더 관련 함수 포함)
+- `scripts/ui_streamlit.py` — Streamlit 기반 UI. FAISS 인덱스와 Neo4j를 사용해 질의/검색/LLM 생성 워크플로를 제공합니다.
+- `scripts/utils.py` — 중앙 설정, Neo4j 자격 로더, 임베더 캐시와 기본 임베딩 모델(`DEFAULT_EMBED_MODEL = "BAAI/bge-m3"`) 정의.
+- `data/` — FAISS 인덱스 파일(`*.index`) 및 메타(`*.meta.json`)를 보관합니다.
+
+## 요구사항
+
+- Python 3.10+ (권장)
+- 권장: 가상환경 (venv)
+- 필수 라이브러리(일부는 선택적):
+  - `neo4j` (Python driver)
+  - `faiss-cpu`
+  - `numpy`
+  - `lxml` (TEI XML 파싱)
+  - `sentence-transformers` 또는 `transformers` + `torch` (임베딩)
+  - `streamlit` (UI)
+
+간단 설치 예시 (venv 사용):
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements.txt  # 또는 아래 패키지들
+pip install neo4j faiss-cpu numpy lxml sentence-transformers torch transformers streamlit
+```
+
+참고: macOS Apple Silicon에서는 PyTorch MPS 관련 메모리 제약이 있으므로 임베딩 연산은 CPU 모드로 강제하거나 더 큰 메모리의 머신에서 실행하는 것을 권장합니다. (환경변수 `FORCE_EMBED_CPU=1` 사용)
+
+## 설정 (Neo4j)
+
+1. 로컬 Neo4j(또는 원격)를 실행하세요. 기본 설정은 `bolt://localhost:7687`입니다.
+2. 자격은 환경변수 또는 `config/neo4j.ini`에 설정할 수 있습니다. 예:`NEO4J_USER`, `NEO4J_PASSWORD`, `NEO4J_URI`.
+
+예시 `config/neo4j.ini`:
+
+```ini
+[neo4j]
+NEO4J_URI=bolt://localhost:7687
+NEO4J_USER=neo4j
+NEO4J_PASSWORD=mysecret
+```
+
+## 사용법 요약
+
+1. TEI 파일에서 Element/Entity 그래프 생성(및 Element 임베딩/FAISS 재생성 포함):
+
+```bash
+# 메타 파일: data/faiss_tei_meta.json (각 file path 와 chunk 메타 포함)
+export NEO4J_PASSWORD=mysecret
+.venv/bin/python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json --extract-graph --element-embeddings --rebuild-faiss --faiss-out data/faiss_elements.index
+```
+
+2. 누락된 Element 임베딩만 채우고 FAISS 재생성(권장, CPU 강제):
+
+```bash
+export FORCE_EMBED_CPU=1
+.venv/bin/python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json --fill-missing-embeddings --rebuild-faiss --faiss-out data/faiss_elements.index
+```
+
+3. Streamlit UI 실행 (UI에서 FAISS/Neo4j를 통해 질의 및 LLM 테스트):
+
+```bash
+export PYTHONPATH=$(pwd)
+export NEO4J_PASSWORD=mysecret
+.venv/bin/python -m streamlit run scripts/ui_streamlit.py --server.port 8501
+# 브라우저에서 http://localhost:8501 접속
+```
+
+UI 사이드바에서 `FAISS meta JSON` 및 `FAISS index file`을 `data/faiss_elements.meta.json` / `data/faiss_elements.index`로 바꾸면 Element 레벨 검색을 바로 테스트할 수 있습니다.
+
+## 자주 발생하는 문제 및 해결
+
+- Neo4j 인증 오류(Unsupported authentication token):
+  - `NEO4J_PASSWORD`가 설정되어 있는지 확인하세요. `config/neo4j.ini`가 있다면 스크립트가 자동으로 불러오도록 되어 있습니다.
+- Embedding 계산 중 메모리 부족(MPS 관련):
+  - macOS MPS는 메모리 상한 또는 단편화로 인해 큰 모델에서 예기치 않게 실패할 수 있습니다. `FORCE_EMBED_CPU=1`를 사용해 CPU로 계산하거나 더 큰 리소스(GPU 서버)에서 실행하세요.
+  - 배치 사이즈를 줄이거나 문장 길이를 제한해 메모리를 낮추는 것도 효과적입니다.
+- FAISS 인덱스가 크거나 읽기 실패 시:
+  - `faiss-cpu`가 설치되어 있는지 확인하세요. (macOS에서는 빌드가 필요할 수 있음)
+
+## 개발 및 확장 아이디어
+
+- 더 작은/빠른 검색을 위해 FAISS에 IVF/OPQ, HNSW 같은 근사 인덱스 사용을 고려하세요.
+- Entity 정규화: 현재는 canonical hash를 사용해 엔티티를 만들고 있습니다. 유사도 기반 병합 또는 외부 표준(예: VIAF) 매칭을 추가할 수 있습니다.
+- Streamlit UI에서 검색 결과의 시각화를 개선(트리 뷰, Element context 표시)하거나, 원클릭으로 인용된 Chunk를 LLM 프롬프트에 삽입하도록 할 수 있습니다.
+
+## 파일 요약
+
+- `scripts/tei_to_neo4j.py` — TEI 추출/Neo4j 쓰기/임베딩/FAISS 재생성
+- `scripts/rag_integration.py` — 구조+시맨틱 검색 조합 유틸
+- `scripts/ui_streamlit.py` — Streamlit UI
+- `scripts/utils.py` — 설정, 임베더 로딩, 기본 모델
+- `data/*.index`, `data/*.meta.json` — FAISS 인덱스 및 메타
+
+## 지원
+문제가 발생하면 실행 로그(터미널 출력), 사용한 커맨드, `config/neo4j.ini`의 존재 여부 정보를 알려주시면 빠르게 원인을 분석해 도와드리겠습니다.
+
+---
+마지막 업데이트: 2025-10-22
+
+## 모델(Models)
+
+이 프로젝트에서 기본으로 사용되는 모델과 권장 대체 모델, 그리고 임베더/LLM을 변경하는 방법을 정리합니다.
+
+- 기본 임베더(Embedder): `BAAI/bge-m3`
+  - 중앙 설정: `scripts/utils.py`의 `DEFAULT_EMBED_MODEL`에 정의되어 있습니다.
+  - 임베딩 차원: 1024 (현재 환경에서 확인된 값)
+  - 사용 이유: 고성능 중국어/다국어 대규모 벡터 모델로 높은 표현력을 제공합니다. 필요에 따라 더 빠른 모델(예: `all-MiniLM-L6-v2`)로 대체해 응답 시간을 줄일 수 있습니다.
+
+- 대체 임베더 권장
+  - 빠른(경량) 옵션: `sentence-transformers/all-MiniLM-L6-v2` (384-dim)
+  - 저비용/로컬 CPU용: `paraphrase-multilingual-MiniLM-L12-v2`
+
+- 기본 LLM(예시): `kakaocorp/kanana-nano-2.1b-base`
+  - 이 저장소의 예제에서 LLM 기본값으로 사용된 모델입니다(가벼운 테스트용). 실제 워크로드에서는 더 큰 모델(지연/자원 고려)이나 원격 API를 사용할 수 있습니다.
+  - LLM을 변경하려면 Streamlit 사이드바 또는 CLI 인자(`--llm-model`)로 모델명을 넘기면 됩니다. 로컬 HF 모델을 쓸 때는 `trust_remote_code` 옵션을 주의해서 사용하세요.
+
+- 디바이스/메모리 팁
+  - macOS Apple Silicon(MPS) 사용 시 메모리 부족 에러가 발생할 수 있습니다. 다음 중 하나를 권장합니다:
+    - 임베딩은 CPU로 강제: `FORCE_EMBED_CPU=1` 환경변수 설정
+    - 작은/경량 임베더 사용(예: MiniLM)
+    - 임베딩을 미리 생성해 FAISS 인덱스를 보관하고, UI에서는 인덱스만 로드
+  - LLM은 GPU(MPS 또는 CUDA)가 있는 환경에서 속도가 빠릅니다. 로컬 머신이 부족하면 원격 API(예: OpenAI, HF inference) 사용을 권장합니다.
+
+- README에 있는 CLI 예제에서 `--embed-model` 또는 `--llm-model` 플래그로 모델을 오버라이드할 수 있습니다. 예:
+
+```bash
+# 임베더를 바꿔서 임베딩/FAISS 재생성
+.venv/bin/python scripts/tei_to_neo4j.py --meta-file data/faiss_tei_meta.json --extract-graph --element-embeddings --rebuild-faiss --faiss-out data/faiss_elements.index --embed-model sentence-transformers/all-MiniLM-L6-v2
+
+# rag_integration에 다른 LLM을 지정
+python scripts/rag_integration.py --question "..." --call-llm --llm-model gpt2-medium
+```
+
 # dh-rag — Local RAG demo (TEI → FAISS → Neo4j → local LLM)
 
 간단한 설명
