@@ -283,6 +283,11 @@ neo4j start     # 백그라운드 시작
 neo4j status
 ```
 
+- neo4j password 변경:
+```bash
+neo4j-admin dbms set-initial-password dh-rag-neo4j-2025
+```
+
 Neo4j가 시작되면 기본 Bolt 포트(7687)를 확인하세요. 간단한 연결 테스트(파이썬) :
 
 ```bash
